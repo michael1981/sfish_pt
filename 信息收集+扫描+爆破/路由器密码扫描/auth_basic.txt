@@ -1,0 +1,47 @@
+# Login/password pair file (Basic Authentication)
+# pairs splitted by <tab>'s [0x09]
+...other strings are just ignored
+
+# ASCII/ANSI only, no unicode!
+
+# P.S. avoid duplicated pairs, Router Scan doesn't check for it
+
+// default pairs
+admin	<empty>
+admin	admin
+admin	1234
+admin	password
+admin	root
+<empty>	admin
+root	<empty>
+root	admin
+root	root
+<empty>	root
+<empty>	<empty>
+support	<empty>
+support	support
+
+// ISP specific
+admin	onlime
+admin	mts
+telecomadmin	admintelecom
+mgts	mtsoao
+kyivstar	kyivstar
+
+// Cisco pairs
+admin	default
+admin	cisco
+admin	changeme
+<empty>	cisco
+<empty>	Cisco
+<empty>	c
+<empty>	cc
+<empty>	Cisco router
+<empty>	letmein
+<empty>	_Cisco
+cisco	cisco
+Cisco	Cisco
+enable	cisco
+pnadmin	pnadmin
+root	attack
+root	Cisco

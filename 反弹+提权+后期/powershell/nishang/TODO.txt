@@ -1,0 +1,22 @@
+use [System.Net .DNS]::GetHostAddress() (http://msdn.microsoft.com/en-us/library/system.net.dns.aspx)
+in place of iex nslookup in dns txt backdoor - NOT REQUIRED. NO EASY WAY TO RETRIVE TXT RECORDS
+
+hardcode a API key in Prasadhak http://blog.virustotal.com/2012/12/public-api-request-rate-limits-and-tool.html
+
+Give options in Parse_Keys for decoding all keys or only the meaningful ones.
+
+Include payloads from Kautilya
+
+- Rogue AP
+- sethc backdoor
+- connect to hotspot and execute code
+- ncsi
+
+- passwords in plain
+- Make scripts return compatible
+
+
+-Add persistence to backdoors and keylogger
+
+Help needed to be written for:
+Persistence - Functionality needs to be revisisted

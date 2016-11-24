@@ -1,0 +1,18 @@
+www.xueba100.com              	180.97.158.144
+homepage.xueba100.com         	180.97.158.144
+dev.xueba100.com              	106.75.7.241
+pay.xueba100.com              	123.59.44.190
+static.xueba100.com           	218.92.226.46, 218.92.226.45, 175.25.171.10
+live.xueba100.com             	123.59.70.17
+mi.xueba100.com               	106.75.6.218
+test.xueba100.com             	180.150.184.115
+mp.xueba100.com               	180.150.178.237
+log.xueba100.com              	123.59.80.177
+act.xueba100.com              	123.59.61.242
+flume.xueba100.com            	106.75.32.83
+jump.xueba100.com             	118.192.91.125
+mark.xueba100.com             	123.59.70.17
+mining.xueba100.com           	120.132.50.194
+weixin.xueba100.com           	123.59.44.190
+activity.xueba100.com         	106.75.48.226
+sdk.xueba100.com              	123.59.84.227

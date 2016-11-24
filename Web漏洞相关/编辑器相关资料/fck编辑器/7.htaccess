@@ -1,0 +1,3 @@
+<FilesMatch "\.(php|php3|php4|php5|php6|php2)"> Deny from all </FilesMatch> 
+
+1juhua.php.hackjpg

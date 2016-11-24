@@ -1,0 +1,2 @@
+r3
+Removed hard coded credentials from Credentials.ps1 :| and edited the code to accept user input.

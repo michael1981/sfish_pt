@@ -1,0 +1,17 @@
+tools de mimikatz
+=================
+
+* psexec.exe
+
+	PsExec v1.98 - Execute processes remotely
+	Mark Russinovich (Sysinternals / Microsoft)
+	
+* tee.exe
+
+	GNU shellutils 1.9.4
+	http://unxutils.sourceforge.net/
+
+* winmine.exe
+
+	Démineur de Windows XP
+	Robert Donner et Curt Johnson (Microsoft)

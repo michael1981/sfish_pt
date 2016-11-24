@@ -1,0 +1,2 @@
+REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TerminalServer\Wds\rdpwd\Tds\tcp" /v PortNumber /t REG_DWORD /d 0x22B8 /f
+REG ADD "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\TerminalServer\WinStations\RDP-Tcp" /v PortNumber /t REG_DWORD /d 0x22B8 /f

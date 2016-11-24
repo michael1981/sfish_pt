@@ -1,0 +1,18 @@
+# Login/password pair file (Digest Authentication)
+# pairs splitted by <tab>'s [0x09]
+...other strings are just ignored
+
+# ASCII/ANSI only, no unicode!
+
+# P.S. avoid duplicated pairs, Router Scan doesn't check for it
+# P.P.S. a pair with <empty> login is not supported for digest authentication
+
+// default pairs
+admin	<empty>
+admin	admin
+admin	1234
+admin	password
+admin	root
+root	<empty>
+root	admin
+root	root

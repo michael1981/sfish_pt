@@ -1,0 +1,9 @@
+35.com网站管理系统(WMS)
+网站管理系统(WMS)
+关键词：inurl:/vivi_hy_admin     Power by 35.com. 用户名: 密码: 验证码: 系统提示
+默认fck路径/vivi_hy_admin/Fckeditor\editor\fckeditor.html
+
+FCKeditor v2.4.3 中File 类别默认拒绝上传类型：
+html|htm|php|php2|php3|php4|php5|phtml|pwml|inc|asp|aspx|ascx|jsp|cfm|cfc|pl|bat|exe|com|dll|vbs|js|reg|cgi|htaccess|asis|sh|shtml|shtm|phtm
+fck编辑器的版本是2.4，有个漏洞。就是file类型可以直接传asa cer
+路径是可以直接查看到的，fck 

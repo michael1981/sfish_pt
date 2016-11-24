@@ -1,0 +1,42 @@
+***  Installation Started 04/19/07 18:17  ***
+Title: Cain & Abel v4.9 Installation
+Source: C:\Downloads\ca_setup.exe
+Made Dir: C:\Program Files\Cain
+File Copy: C:\Program Files\Cain\UNINSTAL.EXE
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\Cain & Abel v4.9
+RegDB Val: Cain & Abel v4.9
+RegDB Name: DisplayName
+RegDB Root: 2
+RegDB Key: Software\Microsoft\Windows\CurrentVersion\Uninstall\Cain & Abel v4.9
+RegDB Val: C:\PROGRA~1\Cain\UNINSTAL.EXE C:\PROGRA~1\Cain\Install.log
+RegDB Name: UninstallString
+RegDB Root: 2
+File Copy: C:\Program Files\Cain\Cain.exe
+File Copy: C:\Program Files\Cain\Cain.exe.sig
+File Copy: C:\Program Files\Cain\Whatsnew.txt
+File Copy: C:\Program Files\Cain\oui.txt
+Made Dir: C:\Program Files\Cain\Wordlists
+File Copy: C:\Program Files\Cain\Wordlists\Wordlist.txt
+File Copy: C:\Program Files\Cain\CA_UserManual.chm
+File Copy: C:\Program Files\Cain\Abel.dll
+File Copy: C:\Program Files\Cain\Abel.dll.sig
+File Copy: C:\Program Files\Cain\Abel.exe
+File Copy: C:\Program Files\Cain\Abel.exe.sig
+Made Dir: C:\Program Files\Cain\Winrtgen
+File Copy: C:\Program Files\Cain\Winrtgen\charset.txt
+File Copy: C:\Program Files\Cain\Winrtgen\Winrtgen.exe
+File Copy: C:\Program Files\Cain\Winrtgen\Winrtgen.exe.sig
+Made Dir: C:\Program Files\Cain\Driver
+File Copy: C:\Program Files\Cain\Driver\WinPcap_4_0.exe
+Made Dir: C:\Documents and Settings\Administrator.15DE13A271B8481\「开始」菜单\程序\Cain
+Shell Link: C:\Documents and Settings\Administrator.15DE13A271B8481\「开始」菜单\程序\Cain\Winrtgen.lnk
+Shell Link: C:\Documents and Settings\Administrator.15DE13A271B8481\「开始」菜单\程序\Cain\CA_UserManual.lnk
+Shell Link: C:\Documents and Settings\Administrator.15DE13A271B8481\「开始」菜单\程序\Cain\Cain.lnk
+Shell Link: C:\Documents and Settings\Administrator.15DE13A271B8481\「开始」菜单\程序\Cain\Whatsnew.lnk
+Shell Link: C:\Documents and Settings\Administrator.15DE13A271B8481\「开始」菜单\程序\Cain\Uninstall Cain.lnk
+Shell Link: C:\Documents and Settings\Administrator.15DE13A271B8481\桌面\Cain.lnk
+RegDB Key: Software\Cain\Settings
+RegDB Val: C:\Program Files\Cain
+RegDB Name: WorkDir
+RegDB Root: 1
+User Rights: Admin

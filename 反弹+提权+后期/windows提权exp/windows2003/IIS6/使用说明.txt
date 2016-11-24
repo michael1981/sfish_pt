@@ -1,0 +1,3 @@
+IIS6Ã·»®0day
+
+IIS6.exe "command"

@@ -1,0 +1,83 @@
+
+#
+# (C) Tenable Network Security
+#
+# The text of this plugin is (C) Red Hat Inc.
+#
+
+include("compat.inc");
+if ( ! defined_func("bn_random") ) exit(0);
+
+if(description)
+{
+ script_id(18093);
+ script_version ("$Revision: 1.7 $");
+ script_name(english: "RHSA-2005-332: xloadimage");
+ script_set_attribute(attribute: "synopsis", value: 
+"The remote host is missing the patch for the advisory RHSA-2005-332");
+ script_set_attribute(attribute: "description", value: '
+  A new xloadimage package that fixes bugs in handling malformed tiff
+  and pbm/pnm/ppm images, and in handling metacharacters in filenames is now
+  available.
+
+  This update has been rated as having low security impact by the
+  Red Hat Security Response Team.
+
+  The xloadimage utility displays images in an X Window System window,
+  loads images into the root window, or writes images into a file.
+  Xloadimage supports many image types (including GIF, TIFF, JPEG, XPM,
+  and XBM).
+
+  A flaw was discovered in xloadimage where filenames were not properly
+  quoted when calling the gunzip command. An attacker could create a file
+  with a carefully crafted filename so that it would execute arbitrary
+  commands if opened by a victim. The Common Vulnerabilities and
+  Exposures project (cve.mitre.org) has assigned the name CAN-2005-0638 to
+  this issue.
+
+  Another bug in xloadimage would cause it to crash if called with certain
+  invalid TIFF, PNM, PBM, or PPM file names.
+
+  All users of xloadimage should upgrade to this erratum package which
+  contains backported patches to correct these issues.
+
+
+');
+ script_set_attribute(attribute: "cvss_vector", value: "CVSS2#AV:N/AC:L/Au:N/C:P/I:P/A:P");
+script_set_attribute(attribute: "see_also", value: "http://rhn.redhat.com/errata/RHSA-2005-332.html");
+script_set_attribute(attribute: "solution", value: "Get the newest RedHat Updates.");
+script_end_attributes();
+
+script_cve_id("CVE-2005-0638");
+script_summary(english: "Check for the version of the xloadimage packages");
+ 
+ script_category(ACT_GATHER_INFO);
+ 
+ script_copyright(english:"This script is Copyright (C) 2009 Tenable Network Security");
+ script_family(english: "Red Hat Local Security Checks");
+ script_dependencies("ssh_get_info.nasl");
+ 
+ script_require_keys("Host/RedHat/rpm-list");
+ exit(0);
+}
+
+include("rpm.inc");
+
+if ( ! get_kb_item("Host/RedHat/rpm-list") ) exit(1, "Could not get the list of packages");
+
+if ( rpm_check( reference:"xloadimage-4.1-34.RHEL2.1", release:'RHEL2.1') )
+{
+ security_hole(port:0, extra:rpm_report_get());
+ exit(0);
+}
+if ( rpm_check( reference:"xloadimage-4.1-34.RHEL3", release:'RHEL3') )
+{
+ security_hole(port:0, extra:rpm_report_get());
+ exit(0);
+}
+if ( rpm_check( reference:"xloadimage-4.1-34.RHEL4", release:'RHEL4') )
+{
+ security_hole(port:0, extra:rpm_report_get());
+ exit(0);
+}
+exit(0, "Host if not affected");

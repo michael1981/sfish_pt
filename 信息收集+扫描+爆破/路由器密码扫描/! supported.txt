@@ -1,0 +1,267 @@
+Description:
+[e] - wired router (ethernet only)
+[t] - just testing (may be bugged)
+[u] - under construction (working partially without bugs)
+[f] - will be added in the future
+_________________
+
+AnyData
+_________________
+
+AWR-500A
+_________________
+
+ASUS
+_________________
+
+DSL-N10
+DSL-N12U
+RT-AC56U
+RT-AC56U Black
+RT-AC66U
+RT-AC66U Black
+RT-G32
+RT-G32 Rev.C1
+RT-N10
+RT-N10 Rev.C1
+RT-N10+
+RT-N10E
+RT-N10LX
+RT-N10P Black
+RT-N10U
+RT-N10U Black
+RT-N10U HG
+RT-N11 HG
+RT-N12
+RT-N12 Black
+RT-N12 Rev.B1
+RT-N12 Rev.C1
+RT-N12 Rev.D1 Black
+RT-N12E
+RT-N12LX
+RT-N13
+RT-N13U
+RT-N13U Rev.B1
+RT-N14U Black
+RT-N15
+RT-N15U
+RT-N15U Black
+RT-N16
+RT-N16 Black
+RT-N16 HG
+RT-N53 Black
+RT-N56U
+RT-N56U Black
+RT-N56U Grey
+RT-N65U Black
+RT-N66U
+RT-N66U Black
+WL-320gP HG
+WL-500W HG
+WL-500g Premium HG
+WL-500gP HG
+WL-500gP V2
+WL-500gP V2 HG
+WL-520g HG
+WL-520gC HG
+WL-520GU
+WL-520gU HG
+WL-530gV2 HG
+WL-AM604g
+WL-AM604g HG
+_________________
+
+Cisco
+_________________
+
+EPC2325
+Linksys WRT54G
+Linksys WRT54GL
+_________________
+
+D-Link
+_________________
+
+Beeline D150L
+DAP-1155
+DAP-1360
+DCS-930L
+DI-524
+DI-624 [t]
+DI-824VUP [t]
+DI-824VUP+ [t]
+DIR-100 [e]
+DIR-130 [e]
+DIR-300
+DIR-300 Black
+DIR-300 Beeline
+DIR-300BEEB5
+DIR-300NRU rev.B5 Black
+DIR-300NRU rev.B6
+DIR-300NRU rev.B7
+DIR-300NRUB5
+DIR-320
+DIR-320 HG (ASUS firmware)
+DIR-320 HG (Entware firmware)
+DIR-320NRU
+DIR-400
+DIR-615
+DIR-615 Black
+DIR-620 [u]
+DIR-620 Grey
+DIR-628
+DIR-655
+DIR-655 v2.00 [u]
+DIR-825
+DSL-2600U
+DSL-2640NRU
+DSL-2640NRU-SZT-Arch
+DSL-2640NRU-SZV
+DSL-2640U
+DSL-2650NRU
+_________________
+
+EDIMAX
+_________________
+
+Firmware 1.06
+Firmware 1.13 (BR6228GNS)
+Firmware 1.10 (BR6425N)
+Firmware 1.21 (BR6425N)
+Firmware 1.51
+Firmware 1.57
+Firmware 2.52
+Firmware 2.89
+_________________
+
+Huawei
+_________________
+
+HG532c
+HG532e
+_________________
+
+Intercross
+_________________
+
+1P [e]
+4P [e]
+4PW [t]
+_________________
+
+LevelOne
+_________________
+
+SC1BA85A [t]
+_________________
+
+NETGEAR
+_________________
+
+JDGN1000
+JWNR2000
+JWNR2000 v2
+WGR612
+WGR614 v7
+WGR614 v9
+WNDR4000
+WNR1000 v2
+WNR3500L
+WNR612 v2
+_________________
+
+NeoPort
+_________________
+
+Cell Router
+PORT-5E
+_________________
+
+Tenda
+_________________
+
+Beeline 11N
+_________________
+
+Thomson
+_________________
+
+Firmware ST5D.06.03
+Firmware STA3.66.05
+Firmware STB1.53.11
+Firmware STB6.01.40
+Firmware STB6.01.60
+Firmware STB6.07.02
+_________________
+
+TP-LINK
+_________________
+
+WR340G
+WR541G/542G
+WR641G/642G
+WR741ND
+WR743ND
+WR841N
+WR842ND
+WR1043ND
+_________________
+
+TRENDnet
+_________________
+
+Beeline Router
+TEW-432BRP
+TEW-452BRP
+TEW-634GRU
+TEW-650AP
+TEW-651BR
+TEW-652BRP
+TW100-S4W1CA [u]
+_________________
+
+Upvel
+_________________
+
+UR-313N4G
+UR-315BN
+UR-315BN (Onlime)
+UR-319BN (Onlime)
+UR-325BN
+UR-354AN4G
+_________________
+
+ZTE
+_________________
+
+F412 [e]
+F460
+F620 [e]
+F660
+ZXDSL 531BII
+ZXDSL 831AII [e]
+ZXDSL 831CII [e]
+ZXDSL 931WII
+_________________
+
+ZyXEL
+_________________
+
+Beeline N150L
+KEENETIC
+KEENETIC 4G
+KEENETIC GIGA
+KEENETIC GIGA II
+KEENETIC LITE
+KEENETIC ULTRA
+NDMSv2 (Universal)
+P-330W EE
+ZyWALL Series
+_________________
+
+Other firmwares
+_________________
+
+DD-WRT
+Generic ADSL Firmware
+Tomato

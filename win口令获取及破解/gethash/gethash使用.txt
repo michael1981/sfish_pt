@@ -1,0 +1,3 @@
+"gethash是saminside里面带的一个小工具.参数是 $local.要管理权限才能执行.有了hash该怎么做你们懂的...此方法对某些组策略限制只能管理员帐号登录的服务器很好
+
+C:\RECYCLER\gethash.exe $local

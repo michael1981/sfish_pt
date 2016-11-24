@@ -1,0 +1,45 @@
+
+突破防篡改 继续上传
+
+在检测一下网站时，从扫描结果得到一个
+
+[url=http://www.nuanyue.com/admin/fckeditor/editor/filemanager/connectors/test.html
+
+可以看出这是fckeditor的上传页面，通过点击不同的文件类型，fckeditor是支持多种文件类型文件上传的，
+
+所以，有的管理员可能根据需要不同而配置了不同的文件，可以通过选择Connector不同的文件类型，再点击”Get Folders and Files”来查
+看文件夹，如果存在文件夹，如下图，如果返回空白页面或者出错信息，则没有启用这类文件的上传配置。
+
+通过测试发现，网站管理员配置了asp.net,并且可以在resource Type “Media”可以创建和可列目录，
+
+这条思路其实有人在网上已经提过，大致思路是通过创建asp文件夹，再往asp传送图片木马
+
+只是没有公布怎么建立类似于x.asp这样的文件夹呢。在fckeditor里，是会对“.“进行转换成“_“的。
+
+如果你输入建立”x.asp“,其实建立的是”x_asp”文件夹。
+
+提交一条这样的语句就可以
+
+http://www.nuanyue.com/admin/FckEditor/editor/filemanager/connectors/aspx/connector.aspx?Command=CreateFolder&Type=Media&CurrentFolder=c.cdx&NewFolderName=z&uuid=1244789975684
+
+创建一个”c.cdx”的文件夹，在提交时需要uuid参数，原理跟aps文件夹一样，在这个文件夹放置的图片文件IIS会当作asp文件来解析的。
+
+由于在默认的编辑器默认测试页面，管理员禁用了上传功能，只能允许创建目录，所以，在后台找到一处上传的地方，其URL：
+
+http://www.nuanyue.com/admin/adminimg.aspx?simage=images2&bimage=images&path=/fadmin/fUploadFile/fmedia/fz.cdx&returnpath=admin/pic&wsize=270&hsize=190
+
+通过参数returnpath把目录直接指向“/admin/pic“，直接把它指向刚刚建立的z.cdx文件夹 
+
+admin/fUploadFile/fmedia/fz.cdx
+
+http://www.nuanyue.com/imgresize/imgresize.aspx?simage=images2&bimage=images&path=/fadmin/fUploadFile/fmedia/fz.cdx&returnpath=admin/fUploadFile/fmedia/fz.cdx&wsize=270&hsize=190
+
+在后台直接上传文件或者图片木马，
+
+当然还有另一种方法了，这种方法可以减少了创建特殊文件夹的过程。原理跟这个也是一样的，就是不久前让人爆出的oday，
+
+其实传来传去很长时间了。 “Microsoft IIS 5.x/6.0 0解析文件名漏洞”，此漏洞描述：“当文件名为x.asp;x.jpg时
+
+Microsoft IIS会自动以asp格式来进行解析。而当文件名为x.php;x.jpg时，Microsoft IIS会自动以php格式来进行解析。
+
+上传一个这样格式的图片木马而IIS本身的缺陷也是主要的原因。

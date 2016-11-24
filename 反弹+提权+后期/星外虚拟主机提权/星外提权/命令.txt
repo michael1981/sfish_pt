@@ -1,0 +1,32 @@
+/c "C:\windows\temp\cscript" C:\windows\temp\iis.vbs
+
+查3389 ：HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp
+
+
+列目录命令：for /d %i in (E:\freehost\*) do @echo %i
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsNT\CurrentVersion\Winlogon登录用户
+列IIS:  HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\MSFtpsvc\Parameters\Virtual Roots\
+
+HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\MSFtpsvc\Parameters\Virtual Roots\ 通过ftp读虚拟路径
+ 
+
+HKEY_LOCAL_MACHINE\SYSTEM\Control001\Services\ #获取一些服务信息
+
+HKEY_LOCAL_MACHINE\SOFTWARE\Cat Soft\Serv-U\Domains\1\UserList\ #server-u
+HKEY_LOCAL_MACHINE\software\hzhost\config\settings\mysqlpass
+HKEY_LOCAL_MACHINE\software\hzhost\config\settings\mastersvrpass
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\MSSQLServer\MSSQLServer\SuperSocketNetLib\Tcp #mssql  port
+HKEY_LOCAL_MACHINE\SYSTEM\RAdmin\v2.0\Server\Parameters\         #radmin
+HKEY_LOCAL_MACHINE\SYSTEM\LIWEIWENSOFT\INSTALLFREEADMIN\11
+HKEY_LOCAL_MACHINE\SOFTWARE\hzhost\config\settings #华众
+HKEY_CURRENT_USER\Software\PremiumSoft\Navicat\Servers #navicat
+HKEY_LOCAL_MACHINE\SYSTEM\ControlSet002\Services\Tcpip tcpip筛选1
+HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip #tcpip筛选2
+HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp  #远程终端端口
+HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server #fDenyTSConnections 远程终端 值为0 即为开启 为以关闭
+HKLM\software   #查看安装了那些 软件
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsNT\CurrentVersion\Winlogon  DefaultUserName DefaultPassword #自动登录密码
+HKEY_LOCAL_MACHINE’,'SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\
+HKEY_LOCAL_MACHINE\SOFTWARE\MySQL AB\
+HKEY_LOCAL_MACHINE\SYSTEM\Control001\Services\W3SVC\Parameters\Virtual Roots

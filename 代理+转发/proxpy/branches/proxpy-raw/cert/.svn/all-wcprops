@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/!svn/ver/22/branches/proxpy-raw/cert
+END
+proxpyca.crt
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/22/branches/proxpy-raw/cert/proxpyca.crt
+END
+serial
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/!svn/ver/22/branches/proxpy-raw/cert/serial
+END
+createCA.sh
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/22/branches/proxpy-raw/cert/createCA.sh
+END
+index.txt
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/22/branches/proxpy-raw/cert/index.txt
+END
+proxpy.key
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/!svn/ver/22/branches/proxpy-raw/cert/proxpy.key
+END
+openssl.cnf
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/22/branches/proxpy-raw/cert/openssl.cnf
+END

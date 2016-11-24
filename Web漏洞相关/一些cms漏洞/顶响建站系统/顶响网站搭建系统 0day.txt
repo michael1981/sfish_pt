@@ -1,0 +1,5 @@
+顶响网站搭建系统 0day
+谷歌关键词: inurl:newsdisp.php?aid=
+后台:admin/login.php
+拿shell.
+增加新闻.直接上传一个php木马 

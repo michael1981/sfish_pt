@@ -1,0 +1,10 @@
+admin
+sys
+user
+root
+1
+system
+support
+console
+server
+master

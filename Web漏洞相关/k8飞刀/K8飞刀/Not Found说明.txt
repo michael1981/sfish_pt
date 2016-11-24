@@ -1,0 +1,6 @@
+
+K8data.mdb Not Found! 您无法使用Webshell管理和Exploit功能!
+K8_qqwry.dat Not Found! 无法获取地址位置或影响2级域名扫描的准确性!
+SqlMap Not Found! 将无法使用Sqlmap检测注入! 
+把sqlmap目录改为sqlmap 复制到Web-EXP目录即可
+

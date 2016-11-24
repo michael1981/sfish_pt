@@ -1,0 +1,7 @@
+0.1.1
+- Fixed a bug in Parse_Keys. The function Parse_Keys was not being called.
+- Changed help in Wait_For_Command.ps1
+- Fixed a bug in Wait_For_Command. $MagicString was not being used instead a fixed string was matched to the result of $checkurl
+- Removed delay in the credentials payload's prompt. Now the prompt asking for credentials will keep appearing instantly if nothing is entered.
+- Added CHANGELOG to repo
+- Removed hard coded credentials from Credentials.ps1 :| and edited the code to accept user input.

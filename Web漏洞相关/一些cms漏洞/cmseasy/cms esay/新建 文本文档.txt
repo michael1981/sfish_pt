@@ -1,0 +1,13 @@
+CMSeasy爆网站路径漏洞
+本文来源于iick's blog      http://www.hack1990.com/ , 原文地址：http://www.hack1990.com/cat_2/430.html  
+
+
+
+
+lib/mods/celive/menu_top.php
+lib/default/ballot_act.php
+lib/default/special_act.php
+
+
+
+http://www.feisda.com/upload/attachment/201205/13376795138705.PHP

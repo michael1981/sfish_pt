@@ -1,0 +1,5 @@
+Joekoe cms v4.0 上传漏洞和注入漏洞
+	  漏洞代码分析：
+		http://huaidan.org/archives/1233.html
+	  漏洞利用方法：
+把channel变量改一下，只要不等于forum、user.face、blog.logo就行，然后filetype改成asa,就可以光明正大的上传木马了，具体url可以这样common/upload.asp?channel=use&filetype=asa&filename=&fileinput=u_face&formname=&thumbname=&thumbinput=，然后上传

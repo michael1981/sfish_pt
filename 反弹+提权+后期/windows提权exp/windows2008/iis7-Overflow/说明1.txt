@@ -1,0 +1,6 @@
+
+说明：
+
+1、不加参数的话，默认是whoami ，另外您也可以把邪恶程序命名为为iis.run 放到本程序目录下，提权中会自动运行iis.run;
+
+2、这个基于Cesar  Cerrudo 的Chimichurri,Chimichurri是反弹shell的, 这个是执行程序的, 用于实战。

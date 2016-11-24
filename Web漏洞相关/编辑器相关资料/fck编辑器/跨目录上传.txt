@@ -1,0 +1,3 @@
+
+发现有fckeditor 看一下版本是2.6.1的 利用二次上传弄了个x.asp;x(1).jpg的马，结果一访问，shit该目录去掉了脚本执行权限，心里个郁闷呀，试了一个更改上传类型Image为../../发现不能跨目录上传，提示非法类型。
+本文来源于独自等待博客：http://www.waitalone.cn/ 原文地址：http://www.waitalone.cn/post/612.html 

@@ -1,0 +1,8 @@
+漏洞说明：默认数据库：mydatazw/%23mydetazw1.mdb
+	最新消息 后台拿SHELL 具备ASP解析漏洞条件上传图片一句话备份Ewebeditor:admin/aa/admin_login.asp
+user:znbocom
+Pass:89850834
+关键词：inurl:Article.asp?ArtClassID=1 最新消息
+ 后台拿SHELL 具备ASP解析条件上传图片一句话
+
+	

@@ -1,0 +1,5 @@
+程序调用代码
+
+proxies = json.loads(requests.get('http://localhost:8000/').content)
+proxy = proxies[0]
+requests.get(target_url,proxies={'http':'http://%s' % proxy})

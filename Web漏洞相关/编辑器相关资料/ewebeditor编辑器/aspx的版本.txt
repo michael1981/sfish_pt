@@ -1,0 +1,2 @@
+../ewebeditor/admin/upload.aspx添好本地的cer的Shell文件,在浏揽器输入javascript:lbtnUpload.click();就能得到shell
+jsp的上传漏洞以及那个出了N久了,由于没有上传按钮,选择好要上传的shell,直接回车就可以了

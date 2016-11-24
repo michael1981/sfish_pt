@@ -1,0 +1,3 @@
+发包发生异常，正在重试----HTTP发包错误！错误消息：Index was outside the bounds of the array.sendHTTPRequest----发包编号：-0-2----2016-5-23 10:25:26
+发包发生异常，正在重试----HTTP发包错误！错误消息：Index was outside the bounds of the array.sendHTTPRequest----发包编号：-0-3----2016-5-23 10:25:49
+发包发生异常，正在重试----HTTP发包错误！错误消息：Index was outside the bounds of the array.sendHTTPRequest----发包编号：-0-4----2016-5-23 10:25:52

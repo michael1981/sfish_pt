@@ -1,0 +1,18 @@
+CmsEasy 通杀 - [脚本攻防]
+版权声明：转载时请以超链接形式标明文章原始出处和作者信息及本声明
+http://slhack.blogbus.com/logs/179430990.html
+
+
+
+谷歌关键字：intext:Powered by CmsEasy
+
+注入点：/celive/js/include.php?cmseasylive=1111&departmentid=0
+ 
+类型：mysql blind—string
+ 
+错误关键字：online.gif
+ 
+表名：cmseasy_user
+
+ 
+列名：userid,username,password

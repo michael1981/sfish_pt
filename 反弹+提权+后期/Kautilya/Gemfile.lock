@@ -1,0 +1,17 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    artii (2.0.4)
+    colored (1.2)
+    highline (1.6.21)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  artii
+  colored
+  highline
+
+BUNDLED WITH
+   1.10.5
